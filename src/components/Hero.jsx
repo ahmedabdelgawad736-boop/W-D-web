@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowLeft, ArrowRight, Users } from 'lucide-react';
 import { useLanguage } from '../Translation/LanguageContext';
-import wdHeroImg from '../assets/hero image/wd hero.png';
+import heroImg from '../assets/hero image/hero image.png';
 import './Hero.css';
 
 export default function Hero() {
@@ -55,27 +55,14 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Hero Visual Display Card */}
+          {/* Hero Visual — image sits directly in the section, no card wrapper */}
           <div className="hero-visual-col">
-            <div className="hero-card-frame">
-              {/* Inner Screen displaying WD Hero Graphic */}
-              <div className="hero-display-screen">
-                <img 
-                  src={wdHeroImg} 
-                  alt="WD Agency Visual Identity" 
-                  className="hero-logo-graphic"
-                  loading="eager"
-                />
-              </div>
-
-              {/* Bottom Card Meta Strip */}
-              <div className="hero-card-meta">
-                <span className="meta-badge">
-                  <span className="dot-red" />
-                  <span>{t.hero.tagRight}</span>
-                </span>
-              </div>
-            </div>
+            <img
+              src={heroImg}
+              alt="WD Agency highway billboard & pylon signage"
+              className="hero-main-img"
+              loading="eager"
+            />
           </div>
         </div>
       </div>
