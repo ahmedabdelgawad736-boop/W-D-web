@@ -176,6 +176,11 @@ main {
   }
 }
 
+/* Anchor navigation: keep section headings clear of the sticky navbar */
+section[id] {
+  scroll-margin-top: calc(var(--navbar-height) + 8px);
+}
+
 /* Common Section Badge */
 .section-badge-pill {
   display: inline-flex;

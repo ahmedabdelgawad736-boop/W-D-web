@@ -232,7 +232,10 @@
 }
 
 /* Responsive Navbar */
-@media (max-width: 1140px) {
+/* Note: the full desktop nav row (brand + 6 pills + actions) needs ~1200px of
+   space. Below that the pills are compacted, below 1140px the drawer is used,
+   which prevents horizontal overflow / clipped controls between 961px-1360px. */
+@media (max-width: 1360px) {
   .nav-pill-container {
     padding: 0.2rem 0.35rem;
     gap: 0.1rem;
@@ -241,9 +244,35 @@
     font-size: 0.78rem;
     padding: 0.4rem 0.65rem;
   }
+
+  /* Keep the right-side controls (quote / language / theme) on screen:
+     the quote button collapses to its icon, as it already does on phones. */
+  .btn-quote span {
+    display: none;
+  }
+
+  .btn-quote {
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Safety net: the pill row may shrink and scroll internally instead of
+     pushing the page into horizontal overflow. */
+  .nav-links-center {
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links-center::-webkit-scrollbar {
+    display: none;
+  }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1140px) {
   .mobile-hamburger-btn {
     display: inline-flex;
   }

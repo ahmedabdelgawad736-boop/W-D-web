@@ -92,7 +92,7 @@ export default function Navbar() {
           {/* Right Action Controls: Request Quote + Lang Toggle + Theme Toggle */}
           <div className="navbar-actions">
             {/* Request a Quote Button */}
-            <a href="#contact" className="btn-quote">
+            <a href="#contact" className="btn-quote" aria-label={t.nav.quoteBtn}>
               <FileText size={16} className="quote-icon" />
               <span>{t.nav.quoteBtn}</span>
             </a>
