@@ -71,6 +71,11 @@ html.theme-dark .wd-hero-section,
   display: block;
 }
 
+/* Keeps "in Egypt" glued to "Signage" (never breaks between them). */
+.hero-heading-glue {
+  white-space: nowrap;
+}
+
 .hero-highlight {
   color: var(--red-accent);
 }
@@ -185,15 +190,18 @@ html.theme-dark .wd-hero-section,
 @media (max-width: 1024px) {
   .hero-grid {
     gap: 1.75rem;
-    grid-template-columns: 1fr 1.15fr;
+    grid-template-columns: 1fr 1.35fr;
   }
 
   .section-badge-pill.hero-badge {
-    font-size: 0.625rem;
-    padding: 0.24rem 0.6rem;
-    gap: 0.3rem;
+    font-size: 0.59375rem;
+    padding: 0.22rem 0.55rem;
+    gap: 0.28rem;
     letter-spacing: 0.01em;
     margin-bottom: 0.85rem;
+    /* One line only — below 860px the badge sits above the grid (see the
+       absolute rule further down) so it can be wider than the text track. */
+    white-space: nowrap;
   }
 
   .hero-heading {
@@ -220,10 +228,44 @@ html.theme-dark .wd-hero-section,
   }
 }
 
-/* Reduced hero top padding once we leave the desktop layout */
+/* Reduced hero top padding once we leave the desktop layout. 3.25rem makes
+   room for the single-line badge that sits above the grid here (see below). */
 @media (max-width: 860px) {
   .wd-hero-section {
-    padding: 2.5rem 0 0;
+    padding: 3.25rem 0 0;
+  }
+}
+
+/* <=860px: the badge leaves the text column and sits as a one-line eyebrow
+   above the hero grid, aligned with the container. A wrapped badge needs
+   ~37-51px of height and still looks crowded, while a one-line pill fits the
+   full container width in both languages (EN ~260px, AR ~300px vs a text
+   track as narrow as ~140px). Positioned against the section, which spans the
+   full viewport below 861px. */
+@media (min-width: 360px) and (max-width: 860px) {
+  .section-badge-pill.hero-badge {
+    position: absolute;
+    top: 1rem;
+    inset-inline-start: 1.5rem;
+    width: max-content;
+    max-width: calc(100vw - 3rem);
+    margin: 0;
+    font-size: clamp(0.55rem, 1.3vw, 0.59375rem);
+    padding: 0.18rem 0.5rem;
+    gap: 0.24rem;
+  }
+  /* Smaller badge dot, scoped to the hero so other badges keep theirs. */
+  .hero-badge .dot {
+    width: 6px;
+    height: 6px;
+  }
+}
+
+@media (min-width: 360px) and (max-width: 600px) {
+  .section-badge-pill.hero-badge {
+    /* .wd-container uses 1rem side padding below 600px. */
+    inset-inline-start: 1rem;
+    max-width: calc(100vw - 2rem);
   }
 }
 
@@ -233,7 +275,7 @@ html.theme-dark .wd-hero-section,
    AR = image left / text right. */
 @media (min-width: 750px) and (max-width: 860px) {
   .hero-grid {
-    grid-template-columns: 1fr 1.25fr;
+    /* Columns inherit 1fr / 1.35fr from the <=1024px tier. */
     gap: 1rem;
   }
   .hero-heading {
@@ -259,16 +301,12 @@ html.theme-dark .wd-hero-section,
    the image gets the larger track (1fr text / 1.15fr image). */
 @media (min-width: 360px) and (max-width: 749.98px) {
   .hero-grid {
-    grid-template-columns: 1fr 1.25fr;
+    grid-template-columns: 1fr 1.3fr;
     gap: clamp(0.3rem, 1.5vw, 1rem);
   }
 
-  .section-badge-pill.hero-badge {
-    font-size: clamp(0.5625rem, 1.4vw, 0.625rem);
-    padding: 0.18rem 0.45rem;
-    gap: 0.24rem;
-    margin-bottom: clamp(0.35rem, 1.2vw, 0.75rem);
-  }
+  /* Badge styling (font/padding/position) for this band comes from the
+     absolute one-line badge rules above (<=860px). */
 
   .hero-heading {
     font-size: clamp(0.9rem, 3.1vw - 0.15rem, 1.35rem);
@@ -307,15 +345,17 @@ html.theme-dark .wd-hero-section,
   }
 }
 
-@media (max-width: 520px) {
-  .wd-hero-section {
-    padding: 2rem 0 0;
+/* 520-749px: with more width to play with, the photo takes the same larger
+   share as the tablet tiers (headline/lead still fit the text track). */
+@media (min-width: 520px) and (max-width: 749.98px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1.35fr;
   }
 }
 
 /* Narrow phones: put each CTA on its own full-column line so the labels can
    never overflow the ~160-240px text column. */
-@media (max-width: 460px) {
+@media (max-width: 519.98px) {
   .hero-actions {
     width: 100%;
     justify-content: center;
@@ -380,6 +420,9 @@ html.theme-dark .wd-hero-section,
     font-size: 0.5625rem;
     padding: 0.18rem 0.45rem;
     margin-bottom: 0.55rem;
+    /* Stacked full-width layout: allow the pill to wrap again (the <=1024px
+       tier forces nowrap for the two-column layout above). */
+    white-space: normal;
   }
   /* Full-width CTAs here — same compact size as the 360-460px band. */
   .btn-hero-primary,

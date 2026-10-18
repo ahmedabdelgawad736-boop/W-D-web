@@ -20,14 +20,16 @@ export default function Hero() {
               <span>{t.hero.badge}</span>
             </div>
 
-            {/* Main Headline */}
+            {/* Main Headline — line 3 continues on line 2 ("…Signage in Egypt");
+                the glue span keeps "in Egypt" attached to "Signage" when the
+                column is too narrow for the whole line. */}
             <h1 className="hero-heading">
               <span className="hero-heading-line">{t.hero.titleLine1}</span>
               <span className="hero-heading-line">
                 <span className="hero-highlight">{t.hero.titleLine2Highlight}</span>{' '}
                 {t.hero.titleLine2Suffix}
+                <span className="hero-heading-glue">{'\u00A0'}{t.hero.titleLine3}</span>
               </span>
-              <span className="hero-heading-line">{t.hero.titleLine3}</span>
             </h1>
 
             {/* Supporting Description */}
