@@ -312,9 +312,9 @@ export const AR = {
     locationTitle: "المركز والمصانع",
     locationValue: "مدينة العاشر من رمضان الصناعية، المنطقة B3، مصر",
     phoneTitle: "الهاتف المباشر",
-    phoneValue: "+20 100 000 0000",
+    phoneValue: "+20 100 582 2000",
     emailTitle: "المناقصات والاستفسارات",
-    emailValue: "engineering@wd-agency.com",
+    emailValue: "worlddesignads@gmail.com",
   },
   footer: {
     companyDesc:

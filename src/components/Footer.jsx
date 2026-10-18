@@ -82,7 +82,7 @@ export default function Footer() {
             {/* Social Icons */}
             <div className="footer-socials">
               <a 
-                href="https://wa.me/201000000000" 
+                href="https://wa.me/201005822000"
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="social-btn" 
@@ -91,7 +91,7 @@ export default function Footer() {
                 <WhatsAppIcon />
               </a>
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/worldesign.agency"
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="social-btn" 
@@ -100,7 +100,7 @@ export default function Footer() {
                 <FacebookIcon />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/worldesign.agency"
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="social-btn" 

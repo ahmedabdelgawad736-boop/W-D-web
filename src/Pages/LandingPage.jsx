@@ -385,7 +385,7 @@ function ContactSection({ isAr, t }) {
 
             <div className="contact-actions">
               <a
-                href="https://wa.me/201000000000"
+                href="https://wa.me/201005822000"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-contact-primary"

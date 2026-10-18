@@ -312,9 +312,9 @@ export const EN = {
     locationTitle: "Headquarters & Plant",
     locationValue: "10th of Ramadan Industrial City, Zone B3, Egypt",
     phoneTitle: "Direct Inquiries",
-    phoneValue: "+20 100 000 0000",
+    phoneValue: "+20 100 582 2000",
     emailTitle: "Tenders & Specifications",
-    emailValue: "engineering@wd-agency.com",
+    emailValue: "worlddesignads@gmail.com",
   },
   footer: {
     companyDesc:
