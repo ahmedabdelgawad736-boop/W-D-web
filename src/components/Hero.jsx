@@ -14,12 +14,6 @@ export default function Hero() {
         <div className={`hero-grid ${isAr ? 'hero-grid-ar' : 'hero-grid-en'}`}>
           {/* Text Content Column */}
           <div className="hero-text-col">
-            {/* Location & Establishment Badge */}
-            <div className="section-badge-pill hero-badge">
-              <span className="dot" />
-              <span>{t.hero.badge}</span>
-            </div>
-
             {/* Main Headline — line 3 continues on line 2 ("…Signage in Egypt");
                 the glue span keeps "in Egypt" attached to "Signage" when the
                 column is too narrow for the whole line. */}

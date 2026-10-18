@@ -14,7 +14,6 @@ export const AR = {
     langSwitch: "English",
   },
   hero: {
-    badge: "انطلقت من قلب مدينة العاشر من رمضان الصناعية | تأسست عام 2005",
     titleLine1: "رواد تصنيع وتركيب",
     titleLine2Highlight: "وتجليد الواجهات",
     titleLine2Suffix: "واللافتات",

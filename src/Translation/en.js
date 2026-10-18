@@ -14,7 +14,6 @@ export const EN = {
     langSwitch: "العربية",
   },
   hero: {
-    badge: "10th of Ramadan Industrial City | Established 2005",
     titleLine1: "Pioneers in Architectural",
     titleLine2Highlight: "Facade Cladding",
     titleLine2Suffix: "& Signage",

@@ -50,11 +50,6 @@ html.theme-dark .wd-hero-section,
   padding-bottom: 3.5rem;
 }
 
-.hero-badge {
-  margin-bottom: 1.5rem;
-  animation: heroFadeInUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
-}
-
 .hero-heading {
   font-size: clamp(2rem, 4.5vw, 3.1rem);
   font-weight: 900;
@@ -193,17 +188,6 @@ html.theme-dark .wd-hero-section,
     grid-template-columns: 1fr 1.35fr;
   }
 
-  .section-badge-pill.hero-badge {
-    font-size: 0.59375rem;
-    padding: 0.22rem 0.55rem;
-    gap: 0.28rem;
-    letter-spacing: 0.01em;
-    margin-bottom: 0.85rem;
-    /* One line only — below 860px the badge sits above the grid (see the
-       absolute rule further down) so it can be wider than the text track. */
-    white-space: nowrap;
-  }
-
   .hero-heading {
     font-size: 1.6rem;
     line-height: 1.2;
@@ -228,44 +212,10 @@ html.theme-dark .wd-hero-section,
   }
 }
 
-/* Reduced hero top padding once we leave the desktop layout. 3.25rem makes
-   room for the single-line badge that sits above the grid here (see below). */
+/* Reduced hero top padding once we leave the desktop layout */
 @media (max-width: 860px) {
   .wd-hero-section {
-    padding: 3.25rem 0 0;
-  }
-}
-
-/* <=860px: the badge leaves the text column and sits as a one-line eyebrow
-   above the hero grid, aligned with the container. A wrapped badge needs
-   ~37-51px of height and still looks crowded, while a one-line pill fits the
-   full container width in both languages (EN ~260px, AR ~300px vs a text
-   track as narrow as ~140px). Positioned against the section, which spans the
-   full viewport below 861px. */
-@media (min-width: 360px) and (max-width: 860px) {
-  .section-badge-pill.hero-badge {
-    position: absolute;
-    top: 1rem;
-    inset-inline-start: 1.5rem;
-    width: max-content;
-    max-width: calc(100vw - 3rem);
-    margin: 0;
-    font-size: clamp(0.55rem, 1.3vw, 0.59375rem);
-    padding: 0.18rem 0.5rem;
-    gap: 0.24rem;
-  }
-  /* Smaller badge dot, scoped to the hero so other badges keep theirs. */
-  .hero-badge .dot {
-    width: 6px;
-    height: 6px;
-  }
-}
-
-@media (min-width: 360px) and (max-width: 600px) {
-  .section-badge-pill.hero-badge {
-    /* .wd-container uses 1rem side padding below 600px. */
-    inset-inline-start: 1rem;
-    max-width: calc(100vw - 2rem);
+    padding: 2.5rem 0 0;
   }
 }
 
@@ -304,9 +254,6 @@ html.theme-dark .wd-hero-section,
     grid-template-columns: 1fr 1.3fr;
     gap: clamp(0.3rem, 1.5vw, 1rem);
   }
-
-  /* Badge styling (font/padding/position) for this band comes from the
-     absolute one-line badge rules above (<=860px). */
 
   .hero-heading {
     font-size: clamp(0.9rem, 3.1vw - 0.15rem, 1.35rem);
@@ -353,6 +300,12 @@ html.theme-dark .wd-hero-section,
   }
 }
 
+@media (max-width: 520px) {
+  .wd-hero-section {
+    padding: 2rem 0 0;
+  }
+}
+
 /* Narrow phones: put each CTA on its own full-column line so the labels can
    never overflow the ~160-240px text column. */
 @media (max-width: 519.98px) {
@@ -383,11 +336,6 @@ html.theme-dark .wd-hero-section,
     width: 13px;
     height: 13px;
   }
-  /* Smaller badge dot, scoped to the hero so other badges keep theirs. */
-  .hero-badge .dot {
-    width: 6px;
-    height: 6px;
-  }
 }
 
 /* BELOW 360px ONLY: a side-by-side split would leave the text column under
@@ -415,14 +363,6 @@ html.theme-dark .wd-hero-section,
     font-size: 0.75rem;
     line-height: 1.45;
     margin-bottom: 1rem;
-  }
-  .section-badge-pill.hero-badge {
-    font-size: 0.5625rem;
-    padding: 0.18rem 0.45rem;
-    margin-bottom: 0.55rem;
-    /* Stacked full-width layout: allow the pill to wrap again (the <=1024px
-       tier forces nowrap for the two-column layout above). */
-    white-space: normal;
   }
   /* Full-width CTAs here — same compact size as the 360-460px band. */
   .btn-hero-primary,
