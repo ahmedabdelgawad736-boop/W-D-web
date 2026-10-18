@@ -172,8 +172,17 @@ html.theme-dark .wd-hero-section,
   max-width: 560px;
   height: auto;
   object-fit: contain;
-  /* The artwork's opaque content reaches the PNG's own bottom edge, so a plain
-     bottom-aligned layout already puts the pylon on the hero's bottom edge. */
+  /* The PNG has a transparent band baked in at the bottom: an alpha scan of the
+     1024x1024 file shows the opaque artwork ends 17px above the file's bottom
+     edge (last rows fade 255->178->76->14->0 around y=1000-1007). Left alone
+     that band renders as a gap under the pylon, so the image reads as floating
+     above the section edge. Pull the element down by exactly that band so the
+     lowest *visible* pixels land on the hero's bottom edge. The image is square
+     and width:100%, so -17/1024 of the width == the band and scales at any size.
+     The section's overflow:hidden clips the now-transparent overrun, so nothing
+     overlaps the stats section. Size, aspect ratio and appearance are unchanged
+     — only the empty space beneath is removed. */
+  margin-bottom: -1.6602%;
 }
 
 /* Responsive Breakpoints */
