@@ -70,11 +70,21 @@ export default function Navbar() {
                 <span>{theme === 'dark' ? t.nav.themeLight : t.nav.themeDark}</span>
               </button>
 
-              <div className="lang-toggle-pill mobile-lang-pill">
+              <div
+                className="lang-toggle-pill mobile-lang-pill"
+                role="group"
+                aria-label="Language Switcher"
+              >
+                <span
+                  className={`lang-indicator ${lang === 'en' ? 'lang-indicator-en' : ''}`}
+                  aria-hidden="true"
+                />
                 <button
                   type="button"
                   className={`lang-option ${lang === 'ar' ? 'active' : ''}`}
                   onClick={() => setLang('ar')}
+                  aria-label="Switch to Arabic"
+                  aria-pressed={lang === 'ar'}
                 >
                   AR
                 </button>
@@ -82,6 +92,8 @@ export default function Navbar() {
                   type="button"
                   className={`lang-option ${lang === 'en' ? 'active' : ''}`}
                   onClick={() => setLang('en')}
+                  aria-label="Switch to English"
+                  aria-pressed={lang === 'en'}
                 >
                   EN
                 </button>
@@ -97,13 +109,18 @@ export default function Navbar() {
               <span>{t.nav.quoteBtn}</span>
             </a>
 
-            {/* Language Switcher Pill (AR / EN) */}
+            {/* Language Switcher Pill (AR / EN) with sliding indicator */}
             <div className="lang-toggle-pill" role="group" aria-label="Language Switcher">
+              <span
+                className={`lang-indicator ${lang === 'en' ? 'lang-indicator-en' : ''}`}
+                aria-hidden="true"
+              />
               <button
                 type="button"
                 className={`lang-option ${lang === 'ar' ? 'active' : ''}`}
                 onClick={() => setLang('ar')}
                 aria-label="Switch to Arabic"
+                aria-pressed={lang === 'ar'}
               >
                 AR
               </button>
@@ -112,6 +129,7 @@ export default function Navbar() {
                 className={`lang-option ${lang === 'en' ? 'active' : ''}`}
                 onClick={() => setLang('en')}
                 aria-label="Switch to English"
+                aria-pressed={lang === 'en'}
               >
                 EN
               </button>

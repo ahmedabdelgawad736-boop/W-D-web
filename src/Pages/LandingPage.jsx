@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   CheckCircle2,
   Wrench,
@@ -26,6 +26,7 @@ import { useLanguage } from '../Translation/LanguageContext';
 import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import Footer from '../components/Footer';
+import CardCarousel from '../components/CardCarousel';
 
 import aboutImg from '../assets/about image/about image.jpg';
 import work1 from '../assets/work images/work 1.jpg';
@@ -71,9 +72,101 @@ const partnerIcons = {
 /* --------------------------------------------------------------------------
    1. Stats / Metrics Section
    -------------------------------------------------------------------------- */
+
+/* Duration of the count-up: quick and calm rather than showy. */
+const STAT_COUNT_DURATION = 1050;
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  typeof window.matchMedia === 'function' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* Splits a value like "50,000 +" into prefix / digits / suffix so the exact
+   original string can always be restored as the final rendered value. */
+function parseMetricValue(value) {
+  const match = /^([^0-9]*)([0-9][0-9,.]*)([\s\S]*)$/.exec(String(value).trim());
+  if (!match) return null;
+  const digits = match[2].replace(/[^0-9]/g, '');
+  if (!digits) return null;
+  return {
+    prefix: match[1],
+    suffix: match[3],
+    target: Number.parseInt(digits, 10),
+    separator: match[2].includes(',') ? ',' : '',
+  };
+}
+
+/* Keeps the original thousand separator while counting up. */
+function formatCount(value, separator) {
+  const digits = String(Math.max(0, Math.round(value)));
+  if (!separator) return digits;
+  return digits.replace(/\B(?=(\d{3})+(?!\d))/g, separator);
+}
+
 function StatsSection({ isAr, t }) {
+  const sectionRef = useRef(null);
+  /* Reduced-motion users (and browsers without IntersectionObserver) get the
+     real values immediately — no counting, no flicker. */
+  const [progress, setProgress] = useState(() => (prefersReducedMotion() ? 1 : 0));
+  const startedRef = useRef(false);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return undefined;
+    const section = sectionRef.current;
+    if (!section || typeof IntersectionObserver === 'undefined') {
+      setProgress(1);
+      return undefined;
+    }
+
+    let frame = 0;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        /* Count once: the observer disconnects on the first trigger, so
+           scrolling away and back never restarts the animation. */
+        observer.disconnect();
+        if (startedRef.current) return;
+        startedRef.current = true;
+
+        const startedAt = performance.now();
+        const step = (now) => {
+          const ratio = Math.min(1, (now - startedAt) / STAT_COUNT_DURATION);
+          const eased = 1 - Math.pow(1 - ratio, 3); /* easeOutCubic */
+          if (ratio >= 1) {
+            setProgress(1);
+            return;
+          }
+          setProgress(eased);
+          frame = window.requestAnimationFrame(step);
+        };
+        frame = window.requestAnimationFrame(step);
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(section);
+
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  /* progress === 1 renders the untouched original string, so the finished
+     value keeps its exact formatting, suffix and styling. */
+  const renderMetric = (value) => {
+    if (progress >= 1) return value;
+    const parsed = parseMetricValue(value);
+    if (!parsed) return value;
+    return (
+      parsed.prefix +
+      formatCount(parsed.target * progress, parsed.separator) +
+      parsed.suffix
+    );
+  };
+
   return (
-    <section className="stats-bar-section" id="metrics">
+    <section className="stats-bar-section" id="metrics" ref={sectionRef}>
       <div className="wd-container">
         <div className={`stats-grid ${isAr ? 'stats-grid-ar' : 'stats-grid-en'}`}>
           {t.metrics.map((item, idx) => (
@@ -81,7 +174,7 @@ function StatsSection({ isAr, t }) {
               <span className="stat-header font-mono">{item.header}</span>
               <div className="stat-value-row">
                 <span className={`stat-num ${item.isRed ? 'stat-num-red' : ''}`}>
-                  {item.value}
+                  {renderMetric(item.value)}
                 </span>
               </div>
               <p className="stat-caption">{item.caption}</p>
@@ -195,7 +288,10 @@ function ServicesSection({ isAr, t }) {
           </div>
         </div>
 
-        <div className={`services-grid ${isAr ? 'services-grid-ar' : 'services-grid-en'}`}>
+        <CardCarousel
+          className={`services-grid ${isAr ? 'services-grid-ar' : 'services-grid-en'}`}
+          label={t.services.title}
+        >
           {t.services.items.map((service) => {
             const IconComponent = serviceIconMap[service.icon] || Building2;
             return (
@@ -221,7 +317,7 @@ function ServicesSection({ isAr, t }) {
               </div>
             );
           })}
-        </div>
+        </CardCarousel>
       </div>
     </section>
   );
@@ -265,7 +361,10 @@ function ProjectsSection({ isAr, t }) {
           </div>
         </div>
 
-        <div className={`projects-grid ${isAr ? 'projects-grid-ar' : 'projects-grid-en'}`}>
+        <CardCarousel
+          className={`projects-grid ${isAr ? 'projects-grid-ar' : 'projects-grid-en'}`}
+          label={t.works.badge}
+        >
           {filteredItems.map((item) => (
             <article key={item.id} className="project-card">
               <div className="project-image-box">
@@ -293,7 +392,7 @@ function ProjectsSection({ isAr, t }) {
               </div>
             </article>
           ))}
-        </div>
+        </CardCarousel>
       </div>
     </section>
   );
@@ -314,7 +413,10 @@ function MethodologySection({ isAr, t }) {
           <p className="methodology-summary">{t.methodology.summary}</p>
         </div>
 
-        <div className={`methodology-grid ${isAr ? 'grid-dir-ar' : 'grid-dir-en'}`}>
+        <CardCarousel
+          className={`methodology-grid ${isAr ? 'grid-dir-ar' : 'grid-dir-en'}`}
+          label={t.methodology.badge}
+        >
           {t.methodology.steps.map((step) => (
             <div key={step.number} className="methodology-card">
               <div className="step-number-row">
@@ -324,7 +426,7 @@ function MethodologySection({ isAr, t }) {
               <p className="step-desc">{step.description}</p>
             </div>
           ))}
-        </div>
+        </CardCarousel>
       </div>
     </section>
   );
@@ -348,7 +450,10 @@ function PartnersSection({ isAr, t }) {
           </div>
         </div>
 
-        <div className={`partners-grid ${isAr ? 'partners-grid-ar' : 'partners-grid-en'}`}>
+        <CardCarousel
+          className={`partners-grid ${isAr ? 'partners-grid-ar' : 'partners-grid-en'}`}
+          label={t.partners.title}
+        >
           {t.partners.sectors.map((sector, idx) => {
             const IconComponent = partnerIcons[sector.icon] || Building2;
             return (
@@ -361,7 +466,7 @@ function PartnersSection({ isAr, t }) {
               </div>
             );
           })}
-        </div>
+        </CardCarousel>
       </div>
     </section>
   );

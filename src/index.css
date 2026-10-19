@@ -96,6 +96,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Smooth theme changes: colors ease instead of snapping on toggle. */
+html,
+body {
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
 /* Arabic typography overrides */
 .lang-ar {
   font-family: var(--font-arabic);
@@ -277,6 +283,23 @@ section[id] {
   100% {
     opacity: 1;
   }
+}
+
+/* Subtle fade used only while switching EN <-> AR, so the direction/content
+   swap reads as a smooth transition instead of an abrupt jump. It is applied
+   by LanguageContext only after a change (never on first paint), which keeps
+   the existing hero entrance animations untouched. */
+@keyframes langSwapFade {
+  from {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.lang-swap-active {
+  animation: langSwapFade 0.22s ease both;
 }
 
 @media (prefers-reduced-motion: reduce) {

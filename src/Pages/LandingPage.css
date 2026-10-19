@@ -87,38 +87,79 @@
   line-height: 1.5;
 }
 
+/* Responsive compaction: the cards right under the hero read as very bulky on
+   tablets/phones, so internal padding, type scale and gaps are trimmed while
+   the card footprint (column count / width) stays exactly as before. */
 @media (max-width: 1024px) {
+  .stats-bar-section {
+    padding: 2.5rem 0;
+  }
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
+    gap: 1.15rem;
+  }
+  .stat-card {
+    padding: 1.3rem 1.1rem;
+  }
+  .stat-header {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+  .stat-value-row {
+    margin-bottom: 0.5rem;
+  }
+  .stat-num {
+    font-size: 1.95rem;
+  }
+  .stat-caption {
+    font-size: 0.8rem;
+    line-height: 1.45;
   }
 }
 
 @media (max-width: 600px) {
   .stats-bar-section {
-    padding: 2.25rem 0;
+    padding: 1.75rem 0;
   }
   .stats-grid {
     grid-template-columns: 1fr;
-    gap: 0.85rem;
+    gap: 0.7rem;
   }
   .stat-card {
-    padding: 1.35rem 1rem;
+    padding: 1rem 0.9rem;
+  }
+  .stat-header {
+    font-size: 0.68rem;
+    margin-bottom: 0.35rem;
+  }
+  .stat-value-row {
+    margin-bottom: 0.35rem;
   }
   .stat-num {
-    font-size: 2rem;
+    font-size: 1.7rem;
+  }
+  .stat-caption {
+    font-size: 0.775rem;
+    line-height: 1.4;
   }
 }
 
 @media (max-width: 380px) {
   .stat-card {
-    padding: 1.15rem 0.75rem;
+    padding: 0.9rem 0.8rem;
+  }
+  .stat-header {
+    font-size: 0.65rem;
+    margin-bottom: 0.3rem;
+  }
+  .stat-value-row {
+    margin-bottom: 0.3rem;
   }
   .stat-num {
-    font-size: 1.75rem;
+    font-size: 1.55rem;
   }
   .stat-caption {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
   }
 }
 
@@ -344,8 +385,53 @@ html.theme-dark .feature-pill-card:hover,
 @media (max-width: 1024px) {
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    /* Spacing stays driven by the existing margins inside each block so the
+       re-ordered content keeps its original rhythm. */
+    gap: 0;
   }
+
+  /* Responsive reading order:
+       1) "About Us | Engineering Story" label
+       2) "From the Heart of Egypt's Industrial Hub" / "We Build Enduring
+          Visual Landmarks" headings
+       3) the About image (with its caption bar: plant & CNC workshops,
+          10th of Ramadan — and the safety / nationwide coverage boxes)
+       4) the descriptive paragraphs
+       5) the certification & quality cards
+     The two existing columns are unwrapped with `display: contents` so their
+     real children become items of this single-column grid and can be ordered
+     with `order`. No markup, copy, image or style is duplicated, and the
+     desktop two-column layout never matches these rules. */
+  .about-text-col,
+  .about-visual-col {
+    display: contents;
+  }
+
+  .about-text-col > .about-badge {
+    order: 1;
+  }
+
+  .about-text-col > .about-heading {
+    order: 2;
+  }
+
+  .about-visual-col > .about-card-wrapper {
+    order: 3;
+    margin-bottom: 1.5rem;
+  }
+
+  .about-text-col > .about-desc:nth-of-type(1) {
+    order: 4;
+  }
+
+  .about-text-col > .about-desc:nth-of-type(2) {
+    order: 5;
+  }
+
+  .about-text-col > .about-features-grid {
+    order: 6;
+  }
+
   .about-heading {
     font-size: 2rem;
   }
@@ -1415,5 +1501,339 @@ html.theme-dark .partner-sector-card:hover,
   }
   .contact-summary {
     font-size: 0.875rem;
+  }
+}
+
+/* ==========================================================================
+   Responsive card carousels + mobile card compaction
+   Sections: Engineering Services, Projects (Track Record), Methodology
+   ---------------------------------------------------------------------------
+   The markup of these sections is unchanged (CardCarousel renders the very same
+   grid element), so above 768px everything keeps its existing desktop grid.
+   Below 768px the grid becomes a swipeable horizontal carousel with dots.
+   These blocks are intentionally last in the file so they win over the older,
+   tighter small-screen rules where they overlap (values here are equal or
+   tighter than the existing ones).
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* --- Carousel shell --------------------------------------------------- */
+  .wd-carousel {
+    display: flex;
+    align-items: stretch;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    overscroll-behavior-x: contain;
+    -webkit-overflow-scrolling: touch;
+    gap: 0.85rem;
+    /* Vertical padding keeps card shadows / hover lift inside the scroll
+       container's clip edge instead of being cut off. */
+    padding: 10px 0 8px;
+    margin: 0;
+    scrollbar-width: none;
+  }
+
+  .wd-carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .wd-carousel > * {
+    flex: 0 0 auto;
+    flex-basis: calc(100% - 30px);
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+
+  /* --- Pagination dots -------------------------------------------------- */
+  .wd-carousel-dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    margin-top: 1rem;
+  }
+
+  .wd-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-pill);
+    cursor: pointer;
+  }
+
+  .wd-dot-core {
+    display: block;
+    width: 7px;
+    height: 7px;
+    border-radius: var(--radius-pill);
+    background-color: var(--text-muted);
+    opacity: 0.35;
+    transition: width 0.24s ease, opacity 0.24s ease,
+      background-color 0.24s ease;
+  }
+
+  .wd-dot.is-active .wd-dot-core {
+    width: 18px;
+    opacity: 1;
+    background-color: var(--red-accent);
+  }
+
+  .wd-dot:focus-visible {
+    outline: 2px solid var(--red-accent);
+    outline-offset: 2px;
+  }
+
+  /* --- Engineering Services cards -------------------------------------- */
+  .service-card {
+    padding: 1.25rem 1.05rem;
+  }
+
+  .service-icon-frame {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 0.9rem;
+  }
+
+  .wd-carousel .service-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .service-code {
+    font-size: 0.66rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .service-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .service-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin-bottom: 1.1rem;
+  }
+
+  .service-card-footer {
+    padding-top: 0.6rem;
+  }
+
+  /* --- Project cards + filter controls --------------------------------- */
+  .projects-filter-bar {
+    gap: 0.4rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .filter-tab-btn {
+    font-size: 0.75rem;
+    padding: 0.55rem 0.9rem;
+  }
+
+  .project-content {
+    padding: 1.1rem 1.05rem 1rem;
+  }
+
+  .project-subcaption {
+    font-size: 0.725rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .project-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .project-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .project-meta-strip {
+    padding-top: 0.7rem;
+    font-size: 0.725rem;
+  }
+
+  .project-location-tag {
+    font-size: 0.7rem;
+    top: 12px;
+  }
+
+  /* --- Methodology cards ------------------------------------------------ */
+  .methodology-card {
+    padding: 1.4rem 1.1rem 1.25rem;
+  }
+
+  .step-number-row {
+    margin-bottom: 0.75rem;
+  }
+
+  .step-big-number {
+    font-size: 1.85rem;
+  }
+
+  .step-title {
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .step-desc {
+    font-size: 0.8rem;
+    line-height: 1.6;
+  }
+}
+
+/* Two cards per view only when each card stays comfortably readable
+   (tablet portrait / small laptop widths in responsive mode). */
+@media (min-width: 561px) and (max-width: 768px) {
+  .wd-carousel > * {
+    flex-basis: calc(50% - 16px);
+  }
+}
+
+/* Desktop and wide tablets: the dots are never needed, and the grid layout is
+   untouched. Rendered dots are also removed by the component on resize. */
+@media (min-width: 769px) {
+  .wd-carousel-dots {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .wd-carousel {
+    gap: 0.7rem;
+    padding: 8px 0 6px;
+  }
+
+  .wd-carousel > * {
+    flex-basis: calc(100% - 26px);
+  }
+
+  .wd-carousel-dots {
+    margin-top: 0.9rem;
+  }
+
+  .filter-tab-btn {
+    font-size: 0.73rem;
+    padding: 0.55rem 0.8rem;
+  }
+
+  .service-card {
+    padding: 1.1rem 0.9rem;
+  }
+
+  .service-icon-frame {
+    width: 36px;
+    height: 36px;
+    margin-bottom: 0.8rem;
+  }
+
+  .wd-carousel .service-icon {
+    width: 17px;
+    height: 17px;
+  }
+
+  .service-title {
+    font-size: 1rem;
+  }
+
+  .service-desc {
+    font-size: 0.775rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .project-content {
+    padding: 1rem 0.9rem 0.9rem;
+  }
+
+  .project-title {
+    font-size: 1rem;
+  }
+
+  .project-desc {
+    font-size: 0.775rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .methodology-card {
+    padding: 1.15rem 0.95rem 1rem;
+  }
+
+  .step-big-number {
+    font-size: 1.7rem;
+  }
+
+  .step-title {
+    font-size: 1rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .step-desc {
+    font-size: 0.775rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .wd-carousel {
+    gap: 0.6rem;
+  }
+
+  .wd-carousel > * {
+    flex-basis: calc(100% - 22px);
+  }
+
+  .filter-tab-btn {
+    font-size: 0.72rem;
+    padding: 0.52rem 0.72rem;
+  }
+
+  .service-card {
+    padding: 1rem 0.8rem;
+  }
+
+  .methodology-card {
+    padding: 1.05rem 0.85rem 0.9rem;
+  }
+
+  .project-content {
+    padding: 0.9rem 0.8rem 0.85rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Success Partners — carousel sizing
+   The partner tiles are small, so they show more than one per view instead of
+   stretching to a single full-width card. Higher specificity than the generic
+   `.wd-carousel > *` basis above, so it wins at every responsive width while
+   the desktop 6-column grid stays untouched.
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  .partners-grid.wd-carousel > * {
+    flex-basis: calc(33.333% - 12px);
+  }
+}
+
+@media (max-width: 560px) {
+  .partners-grid.wd-carousel > * {
+    flex-basis: calc(50% - 12px);
+  }
+}
+
+@media (max-width: 380px) {
+  .partners-grid.wd-carousel > * {
+    flex-basis: calc(50% - 10px);
+  }
+
+  .partner-sector-card {
+    padding: 1.1rem 0.65rem;
   }
 }

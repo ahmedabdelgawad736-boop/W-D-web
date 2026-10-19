@@ -1,11 +1,14 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { EN } from './en';
 import { AR } from './ar';
 
 const LanguageContext = createContext();
 
+/* How long the subtle language-swap fade lasts (mirrors the CSS animation). */
+const SWAP_DURATION = 240;
+
 export function LanguageProvider({ children }) {
-  const [lang, setLang] = useState(() => {
+  const [lang, setLangState] = useState(() => {
     try {
       const saved = localStorage.getItem('wd_lang');
       if (saved === 'ar' || saved === 'en') return saved;
@@ -15,11 +18,31 @@ export function LanguageProvider({ children }) {
     }
   });
 
+  /* Non-zero only while a language change is animating, so the fade never runs
+     on first paint and never interferes with the existing entrance animations. */
+  const [swapSeq, setSwapSeq] = useState(0);
+
   const t = lang === 'ar' ? AR : EN;
 
-  const toggleLanguage = () => {
-    setLang((prev) => (prev === 'en' ? 'ar' : 'en'));
-  };
+  const setLang = useCallback(
+    (next) => {
+      if ((next !== 'ar' && next !== 'en') || next === lang) return;
+      setSwapSeq((seq) => seq + 1);
+      setLangState(next);
+    },
+    [lang]
+  );
+
+  const toggleLanguage = useCallback(() => {
+    setSwapSeq((seq) => seq + 1);
+    setLangState((prev) => (prev === 'en' ? 'ar' : 'en'));
+  }, []);
+
+  useEffect(() => {
+    if (!swapSeq) return undefined;
+    const id = window.setTimeout(() => setSwapSeq(0), SWAP_DURATION);
+    return () => window.clearTimeout(id);
+  }, [swapSeq]);
 
   useEffect(() => {
     try {
@@ -33,7 +56,15 @@ export function LanguageProvider({ children }) {
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, toggleLanguage, t }}>
-      <div className={`app-lang-wrapper ${lang === 'ar' ? 'lang-ar' : 'lang-en'}`}>
+      <div
+        className={[
+          'app-lang-wrapper',
+          lang === 'ar' ? 'lang-ar' : 'lang-en',
+          swapSeq ? 'lang-swap-active' : '',
+        ]
+          .filter(Boolean)
+          .join(' ')}
+      >
         {children}
       </div>
     </LanguageContext.Provider>
