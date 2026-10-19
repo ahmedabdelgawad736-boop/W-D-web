@@ -76,6 +76,12 @@ const partnerIcons = {
 /* Duration of the count-up: quick and calm rather than showy. */
 const STAT_COUNT_DURATION = 1050;
 
+/* Longest the count-up will wait for the web fonts (Plus Jakarta Sans /
+   Cairo) to settle. Beyond that it shows the final values instead of counting
+   across a font swap, so a slow or blocked font request can neither reflow the
+   card mid-animation nor stall the section at 0. */
+const STAT_FONT_WAIT_MAX = 3000;
+
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   typeof window.matchMedia === 'function' &&
@@ -108,7 +114,7 @@ function StatsSection({ isAr, t }) {
   /* Reduced-motion users (and browsers without IntersectionObserver) get the
      real values immediately — no counting, no flicker. */
   const [progress, setProgress] = useState(() => (prefersReducedMotion() ? 1 : 0));
-  const startedRef = useRef(false);
+  const triggeredRef = useRef(false);
 
   useEffect(() => {
     if (prefersReducedMotion()) return undefined;
@@ -119,27 +125,65 @@ function StatsSection({ isAr, t }) {
     }
 
     let frame = 0;
+    let fontWait = 0;
+    let cancelled = false;
+
+    const countUp = () => {
+      const startedAt = performance.now();
+      const step = (now) => {
+        if (cancelled) return;
+        const ratio = Math.min(1, (now - startedAt) / STAT_COUNT_DURATION);
+        const eased = 1 - Math.pow(1 - ratio, 3); /* easeOutCubic */
+        if (ratio >= 1) {
+          setProgress(1);
+          return;
+        }
+        setProgress(eased);
+        frame = window.requestAnimationFrame(step);
+      };
+      frame = window.requestAnimationFrame(step);
+    };
+
+    const startCounting = () => {
+      if (cancelled) return;
+      /* Flush style+layout so an already-loaded web font is applied before the
+         first animated frame is measured. */
+      void document.body.offsetHeight;
+      countUp();
+    };
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries.some((entry) => entry.isIntersecting)) return;
         /* Count once: the observer disconnects on the first trigger, so
            scrolling away and back never restarts the animation. */
         observer.disconnect();
-        if (startedRef.current) return;
-        startedRef.current = true;
+        if (triggeredRef.current) return;
+        triggeredRef.current = true;
 
-        const startedAt = performance.now();
-        const step = (now) => {
-          const ratio = Math.min(1, (now - startedAt) / STAT_COUNT_DURATION);
-          const eased = 1 - Math.pow(1 - ratio, 3); /* easeOutCubic */
-          if (ratio >= 1) {
-            setProgress(1);
-            return;
-          }
-          setProgress(eased);
-          frame = window.requestAnimationFrame(step);
+        /* Let the web fonts settle first. Counting while Plus Jakarta Sans /
+           Cairo are still swapping in (font-display: swap) lets that swap
+           reflow the stat card in the middle of the animation. If the fonts
+           have not settled within STAT_FONT_WAIT_MAX, show the final values
+           instead of counting: a graceful skip beats a reflowing count-up, and
+           a slow or unreachable font request can never stall the section. */
+        let resolved = false;
+        const begin = () => {
+          if (resolved || cancelled) return;
+          resolved = true;
+          startCounting();
         };
-        frame = window.requestAnimationFrame(step);
+        const skip = () => {
+          if (resolved || cancelled) return;
+          resolved = true;
+          setProgress(1);
+        };
+        if (document.fonts && document.fonts.ready && document.fonts.ready.then) {
+          document.fonts.ready.then(begin, begin);
+          fontWait = window.setTimeout(skip, STAT_FONT_WAIT_MAX);
+        } else {
+          begin();
+        }
       },
       { threshold: 0.3 }
     );
@@ -147,7 +191,9 @@ function StatsSection({ isAr, t }) {
     observer.observe(section);
 
     return () => {
+      cancelled = true;
       observer.disconnect();
+      window.clearTimeout(fontWait);
       window.cancelAnimationFrame(frame);
     };
   }, []);
