@@ -73,11 +73,6 @@ const partnerIcons = {
 
 /* Duration of the count-up: quick and calm rather than showy. */
 const STAT_COUNT_DURATION = 1050;
-
-/* Longest the count-up will wait for the web fonts (Plus Jakarta Sans /
-   Cairo) to settle. Beyond that it shows the final values instead of counting
-   across a font swap, so a slow or blocked font request can neither reflow the
-   card mid-animation nor stall the section at 0. */
 const STAT_FONT_WAIT_MAX = 3000;
 
 const prefersReducedMotion = () =>
@@ -159,12 +154,6 @@ function StatsSection({ isAr, t }) {
         if (triggeredRef.current) return;
         triggeredRef.current = true;
 
-        /* Let the web fonts settle first. Counting while Plus Jakarta Sans /
-           Cairo are still swapping in (font-display: swap) lets that swap
-           reflow the stat card in the middle of the animation. If the fonts
-           have not settled within STAT_FONT_WAIT_MAX, show the final values
-           instead of counting: a graceful skip beats a reflowing count-up, and
-           a slow or unreachable font request can never stall the section. */
         let resolved = false;
         const begin = () => {
           if (resolved || cancelled) return;

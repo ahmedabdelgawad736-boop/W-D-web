@@ -266,14 +266,12 @@
 }
 
 /* Responsive Navbar */
-/* Note: the full desktop nav row (brand + 6 pills + actions) needs ~1200px of
-   space. Below that the pills are compacted, below 1140px the drawer is used,
-   which prevents horizontal overflow / clipped controls between 961px-1360px. */
 @media (max-width: 1360px) {
   .nav-pill-container {
     padding: 0.2rem 0.35rem;
     gap: 0.1rem;
   }
+
   .nav-item {
     font-size: 0.78rem;
     padding: 0.4rem 0.65rem;
@@ -301,6 +299,7 @@
     overflow-x: auto;
     scrollbar-width: none;
   }
+
   .nav-links-center::-webkit-scrollbar {
     display: none;
   }
@@ -383,6 +382,7 @@
 }
 
 @media (max-width: 640px) {
+
   .navbar-actions .lang-toggle-pill,
   .navbar-actions .theme-toggle-btn {
     display: none;

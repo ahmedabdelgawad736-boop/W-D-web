@@ -1,19 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-/**
- * CardCarousel
- * ---------------------------------------------------------------------------
- * A dependency-free horizontal card carousel used by the card sections
- * (Engineering Services, Projects, Methodology) on responsive screens.
- *
- * - The `className` element doubles as the scroll track, so the exact same DOM
- *   and content keep their existing desktop grid layout: the carousel
- *   behaviour (flex row + overflow-x + snap) only activates from the CSS in
- *   LandingPage.css at responsive widths, where dots are also shown.
- * - Swipe gestures come from native horizontal touch scrolling (no library).
- * - Dots are rendered only when the content actually overflows, so the desktop
- *   layout renders no extra markup.
- */
 export default function CardCarousel({ className = '', label, children }) {
   const trackRef = useRef(null);
   const [pages, setPages] = useState(1);

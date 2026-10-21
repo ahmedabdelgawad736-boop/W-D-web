@@ -94,23 +94,29 @@
   .stats-bar-section {
     padding: 2.5rem 0;
   }
+
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1.15rem;
   }
+
   .stat-card {
     padding: 1.3rem 1.1rem;
   }
+
   .stat-header {
     font-size: 0.7rem;
     margin-bottom: 0.5rem;
   }
+
   .stat-value-row {
     margin-bottom: 0.5rem;
   }
+
   .stat-num {
     font-size: 1.95rem;
   }
+
   .stat-caption {
     font-size: 0.8rem;
     line-height: 1.45;
@@ -121,23 +127,29 @@
   .stats-bar-section {
     padding: 1.75rem 0;
   }
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 0.7rem;
   }
+
   .stat-card {
     padding: 1rem 0.9rem;
   }
+
   .stat-header {
     font-size: 0.68rem;
     margin-bottom: 0.35rem;
   }
+
   .stat-value-row {
     margin-bottom: 0.35rem;
   }
+
   .stat-num {
     font-size: 1.7rem;
   }
+
   .stat-caption {
     font-size: 0.775rem;
     line-height: 1.4;
@@ -148,16 +160,20 @@
   .stat-card {
     padding: 0.9rem 0.8rem;
   }
+
   .stat-header {
     font-size: 0.65rem;
     margin-bottom: 0.3rem;
   }
+
   .stat-value-row {
     margin-bottom: 0.3rem;
   }
+
   .stat-num {
     font-size: 1.55rem;
   }
+
   .stat-caption {
     font-size: 0.72rem;
   }
@@ -390,45 +406,33 @@ html.theme-dark .feature-pill-card:hover,
     gap: 0;
   }
 
-  /* Responsive reading order:
-       1) "About Us | Engineering Story" label
-       2) "From the Heart of Egypt's Industrial Hub" / "We Build Enduring
-          Visual Landmarks" headings
-       3) the About image (with its caption bar: plant & CNC workshops,
-          10th of Ramadan — and the safety / nationwide coverage boxes)
-       4) the descriptive paragraphs
-       5) the certification & quality cards
-     The two existing columns are unwrapped with `display: contents` so their
-     real children become items of this single-column grid and can be ordered
-     with `order`. No markup, copy, image or style is duplicated, and the
-     desktop two-column layout never matches these rules. */
   .about-text-col,
   .about-visual-col {
     display: contents;
   }
 
-  .about-text-col > .about-badge {
+  .about-text-col>.about-badge {
     order: 1;
   }
 
-  .about-text-col > .about-heading {
+  .about-text-col>.about-heading {
     order: 2;
   }
 
-  .about-visual-col > .about-card-wrapper {
+  .about-visual-col>.about-card-wrapper {
     order: 3;
     margin-bottom: 1.5rem;
   }
 
-  .about-text-col > .about-desc:nth-of-type(1) {
+  .about-text-col>.about-desc:nth-of-type(1) {
     order: 4;
   }
 
-  .about-text-col > .about-desc:nth-of-type(2) {
+  .about-text-col>.about-desc:nth-of-type(2) {
     order: 5;
   }
 
-  .about-text-col > .about-features-grid {
+  .about-text-col>.about-features-grid {
     order: 6;
   }
 
@@ -441,12 +445,15 @@ html.theme-dark .feature-pill-card:hover,
   .wd-about-section {
     padding: 3rem 0;
   }
+
   .about-features-grid {
     grid-template-columns: 1fr;
   }
+
   .about-boxes-row {
     grid-template-columns: 1fr;
   }
+
   .about-heading {
     font-size: 1.7rem;
   }
@@ -456,21 +463,25 @@ html.theme-dark .feature-pill-card:hover,
   .wd-about-section {
     padding: 2.5rem 0;
   }
+
   .about-heading {
     font-size: 1.55rem;
     margin-bottom: 1.15rem;
   }
+
   .about-desc {
     font-size: 0.9rem;
     line-height: 1.7;
     margin-bottom: 1rem;
   }
+
   .about-subbar {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.35rem;
     padding: 0.65rem 0.35rem;
   }
+
   .about-card-wrapper {
     padding: 0.65rem;
   }
@@ -480,9 +491,11 @@ html.theme-dark .feature-pill-card:hover,
   .about-heading {
     font-size: 1.4rem;
   }
+
   .feature-pill-card {
     padding: 0.65rem 0.85rem;
   }
+
   .feature-pill-text {
     font-size: 0.775rem;
   }
@@ -700,6 +713,7 @@ html.theme-dark .service-link:hover,
     gap: 1rem;
     margin-bottom: 2.25rem;
   }
+
   .services-heading {
     font-size: 1.95rem;
   }
@@ -709,10 +723,12 @@ html.theme-dark .service-link:hover,
   .wd-services-section {
     padding: 3rem 0;
   }
+
   .services-grid {
     grid-template-columns: 1fr;
     gap: 1.15rem;
   }
+
   .service-card {
     padding: 1.5rem 1.25rem;
   }
@@ -722,19 +738,24 @@ html.theme-dark .service-link:hover,
   .wd-services-section {
     padding: 2.5rem 0;
   }
+
   .services-heading {
     font-size: 1.65rem;
   }
+
   .services-summary {
     font-size: 0.875rem;
     line-height: 1.6;
   }
+
   .service-card {
     padding: 1.25rem 1rem;
   }
+
   .service-title {
     font-size: 1.05rem;
   }
+
   .service-desc {
     font-size: 0.8125rem;
     margin-bottom: 1.15rem;
@@ -971,9 +992,11 @@ html.theme-dark .project-status,
     gap: 1.25rem;
     margin-bottom: 2rem;
   }
+
   .projects-heading {
     font-size: 1.95rem;
   }
+
   .projects-filter-bar {
     width: 100%;
     overflow-x: auto;
@@ -982,12 +1005,15 @@ html.theme-dark .project-status,
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
   }
+
   .projects-filter-bar::-webkit-scrollbar {
     display: none;
   }
+
   .filter-tab-btn {
     flex-shrink: 0;
   }
+
   .projects-grid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
@@ -998,12 +1024,15 @@ html.theme-dark .project-status,
   .wd-projects-section {
     padding: 3rem 0;
   }
+
   .projects-heading {
     font-size: 1.65rem;
   }
+
   .project-content {
     padding: 1.15rem 1rem 1rem;
   }
+
   .project-title {
     font-size: 1.05rem;
   }
@@ -1126,13 +1155,16 @@ html.theme-dark .step-big-number,
   .wd-methodology-section {
     padding: 3rem 0 2rem;
   }
+
   .methodology-heading {
     font-size: 1.85rem;
   }
+
   .methodology-grid {
     grid-template-columns: 1fr;
     gap: 1.15rem;
   }
+
   .methodology-card {
     padding: 1.5rem 1.25rem;
   }
@@ -1142,15 +1174,19 @@ html.theme-dark .step-big-number,
   .wd-methodology-section {
     padding: 2.5rem 0 1.75rem;
   }
+
   .methodology-heading {
     font-size: 1.6rem;
   }
+
   .methodology-summary {
     font-size: 0.875rem;
   }
+
   .methodology-card {
     padding: 1.25rem 1rem;
   }
+
   .step-big-number {
     font-size: 1.95rem;
   }
@@ -1290,9 +1326,11 @@ html.theme-dark .partner-sector-card:hover,
     gap: 1rem;
     margin-bottom: 2.25rem;
   }
+
   .partners-heading {
     font-size: 1.95rem;
   }
+
   .partners-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1308,13 +1346,16 @@ html.theme-dark .partner-sector-card:hover,
   .wd-partners-section {
     padding: 2.75rem 0 3.25rem;
   }
+
   .partners-heading {
     font-size: 1.65rem;
   }
+
   .partners-summary {
     font-size: 0.875rem;
     line-height: 1.6;
   }
+
   .partner-sector-card {
     padding: 1.25rem 0.85rem;
   }
@@ -1390,6 +1431,7 @@ html.theme-dark .partner-sector-card:hover,
   .contact-heading {
     font-size: 1.95rem;
   }
+
   .contact-summary {
     font-size: 0.965rem;
   }
@@ -1399,15 +1441,18 @@ html.theme-dark .partner-sector-card:hover,
   .wd-contact-section {
     padding: 3.25rem 0;
   }
+
   .contact-heading {
     font-size: 1.6rem;
     margin-bottom: 0.9rem;
   }
+
   .contact-summary {
     font-size: 0.915rem;
     line-height: 1.8;
     margin-bottom: 1.75rem;
   }
+
   .btn-contact-primary {
     width: 100%;
     justify-content: center;
@@ -1418,24 +1463,15 @@ html.theme-dark .partner-sector-card:hover,
   .contact-heading {
     font-size: 1.4rem;
   }
+
   .contact-summary {
     font-size: 0.875rem;
   }
 }
 
-/* ==========================================================================
-   Responsive card carousels + mobile card compaction
-   Sections: Engineering Services, Projects (Track Record), Methodology
-   ---------------------------------------------------------------------------
-   The markup of these sections is unchanged (CardCarousel renders the very same
-   grid element), so above 768px everything keeps its existing desktop grid.
-   Below 768px the grid becomes a swipeable horizontal carousel with dots.
-   These blocks are intentionally last in the file so they win over the older,
-   tighter small-screen rules where they overlap (values here are equal or
-   tighter than the existing ones).
-   ========================================================================== */
 
 @media (max-width: 768px) {
+
   /* --- Carousel shell --------------------------------------------------- */
   .wd-carousel {
     display: flex;
@@ -1458,7 +1494,7 @@ html.theme-dark .partner-sector-card:hover,
     display: none;
   }
 
-  .wd-carousel > * {
+  .wd-carousel>* {
     flex: 0 0 auto;
     flex-basis: calc(100% - 30px);
     min-width: 0;
@@ -1614,7 +1650,7 @@ html.theme-dark .partner-sector-card:hover,
 /* Two cards per view only when each card stays comfortably readable
    (tablet portrait / small laptop widths in responsive mode). */
 @media (min-width: 561px) and (max-width: 768px) {
-  .wd-carousel > * {
+  .wd-carousel>* {
     flex-basis: calc(50% - 16px);
   }
 }
@@ -1633,7 +1669,7 @@ html.theme-dark .partner-sector-card:hover,
     padding: 8px 0 6px;
   }
 
-  .wd-carousel > * {
+  .wd-carousel>* {
     flex-basis: calc(100% - 26px);
   }
 
@@ -1706,7 +1742,7 @@ html.theme-dark .partner-sector-card:hover,
     gap: 0.6rem;
   }
 
-  .wd-carousel > * {
+  .wd-carousel>* {
     flex-basis: calc(100% - 22px);
   }
 
@@ -1728,27 +1764,20 @@ html.theme-dark .partner-sector-card:hover,
   }
 }
 
-/* --------------------------------------------------------------------------
-   Success Partners — carousel sizing
-   The partner tiles are small, so they show more than one per view instead of
-   stretching to a single full-width card. Higher specificity than the generic
-   `.wd-carousel > *` basis above, so it wins at every responsive width while
-   the desktop 6-column grid stays untouched.
-   -------------------------------------------------------------------------- */
 @media (max-width: 768px) {
-  .partners-grid.wd-carousel > * {
+  .partners-grid.wd-carousel>* {
     flex-basis: calc(33.333% - 12px);
   }
 }
 
 @media (max-width: 560px) {
-  .partners-grid.wd-carousel > * {
+  .partners-grid.wd-carousel>* {
     flex-basis: calc(50% - 12px);
   }
 }
 
 @media (max-width: 380px) {
-  .partners-grid.wd-carousel > * {
+  .partners-grid.wd-carousel>* {
     flex-basis: calc(50% - 10px);
   }
 
