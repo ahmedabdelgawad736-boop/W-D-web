@@ -18,9 +18,7 @@ import {
   HeartPulse,
   Car,
   MapPin,
-  Phone,
-  Mail,
-  Send,
+  FileText,
 } from 'lucide-react';
 import { useLanguage } from '../Translation/LanguageContext';
 import Navbar from '../components/Navbar';
@@ -525,59 +523,14 @@ function ContactSection({ isAr, t }) {
   return (
     <section className="wd-contact-section" id="contact">
       <div className="wd-container">
-        <div className={`contact-card-frame ${isAr ? 'contact-dir-ar' : 'contact-dir-en'}`}>
-          <div className="contact-main-col">
-            <div className="section-badge-pill contact-badge">
-              <span>{t.contact.badge}</span>
-            </div>
+        <div className={`contact-inner ${isAr ? 'contact-dir-ar' : 'contact-dir-en'}`}>
+          <h2 className="contact-heading">{t.contact.title}</h2>
+          <p className="contact-summary">{t.contact.summary}</p>
 
-            <h2 className="contact-heading">{t.contact.title}</h2>
-            <p className="contact-summary">{t.contact.summary}</p>
-
-            <div className="contact-actions">
-              <a
-                href="https://wa.me/201005822000"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-contact-primary"
-              >
-                <Send size={18} className="btn-icon" />
-                <span>{t.contact.ctaBtn}</span>
-              </a>
-            </div>
-          </div>
-
-          <div className="contact-info-col">
-            <div className="info-item">
-              <div className="info-icon-frame">
-                <MapPin size={20} className="info-icon" />
-              </div>
-              <div className="info-text">
-                <span className="info-label">{t.contact.locationTitle}</span>
-                <span className="info-value">{t.contact.locationValue}</span>
-              </div>
-            </div>
-
-            <div className="info-item">
-              <div className="info-icon-frame">
-                <Phone size={20} className="info-icon" />
-              </div>
-              <div className="info-text">
-                <span className="info-label">{t.contact.phoneTitle}</span>
-                <span className="info-value font-mono">{t.contact.phoneValue}</span>
-              </div>
-            </div>
-
-            <div className="info-item">
-              <div className="info-icon-frame">
-                <Mail size={20} className="info-icon" />
-              </div>
-              <div className="info-text">
-                <span className="info-label">{t.contact.emailTitle}</span>
-                <span className="info-value font-mono">{t.contact.emailValue}</span>
-              </div>
-            </div>
-          </div>
+          <a href="#/quote" className="btn-contact-primary">
+            <FileText size={18} className="btn-icon" />
+            <span>{t.contact.ctaBtn}</span>
+          </a>
         </div>
       </div>
     </section>

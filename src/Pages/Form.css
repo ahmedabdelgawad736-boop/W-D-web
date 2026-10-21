@@ -1,0 +1,1074 @@
+/* ==========================================================================
+   Quote Request Form Page (Formspree)
+   Reuses the W & D design tokens from index.css so the page follows the
+   existing visual identity, including dark mode.
+   ========================================================================== */
+
+.wd-form-page {
+  padding: 2.5rem 0 5rem;
+  background-color: var(--bg-core);
+  /* iOS otherwise auto-inflates text when the phone rotates to
+     landscape, breaking the whole layout. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Direction helpers (document dir already flips most of the layout) */
+.form-dir-ar {
+  direction: rtl;
+}
+
+.form-dir-en {
+  direction: ltr;
+}
+
+/* --------------------------------------------------------------------------
+   Page header
+   -------------------------------------------------------------------------- */
+.form-page-header {
+  padding: 1.5rem 0 2.5rem;
+  /* Flex column centers the back button, title and summary by layout
+     (not just text-align), so everything stays centered in both
+     English (LTR) and Arabic (RTL). */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Back to Home Page button (top of the form page).
+   Secondary style built from the W & D red-soft tokens so it works in
+   both light and dark mode; the flex row flips automatically in RTL.
+   align-self: flex-start pulls it out of the header's centered column
+   and pins it to the inline start — left in English (LTR), right in
+   Arabic (RTL) — while the title and summary stay centered. */
+.form-back-btn {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  margin-bottom: 1.25rem;
+  border: 1.5px solid var(--red-badge-border);
+  border-radius: var(--radius-md);
+  background-color: var(--red-soft-btn);
+  color: var(--red-soft-btn-text);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.form-back-btn:hover {
+  background-color: var(--red-soft-btn-hover);
+  border-color: var(--red-accent);
+  transform: translateY(-2px);
+}
+
+.form-back-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+.form-page-title {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  margin: 0 auto 0.85rem;
+  max-width: 900px;
+}
+
+.form-page-summary {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Section cards
+   -------------------------------------------------------------------------- */
+.wd-quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  /* Keep the form comfortably readable instead of stretching
+     across the full 1360px marketing container. */
+  max-width: 980px;
+  /* Auto inline margins center the form horizontally in BOTH directions:
+     left/right in English (LTR) and right/left in Arabic (RTL). The
+     language only flips the text inside, never the form's position. */
+  margin-inline: auto;
+}
+
+.form-section-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.form-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.9rem 1.5rem;
+  background-color: var(--bg-subtle);
+  border-bottom: 1px solid var(--border-card);
+}
+
+.form-section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.form-section-num {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--red-accent);
+  color: #ffffff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+}
+
+.form-section-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.form-section-tag {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.form-section-body {
+  padding: 1.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Fields
+   -------------------------------------------------------------------------- */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.form-section-body>*+* {
+  margin-top: 1.35rem;
+}
+
+.form-fieldset {
+  border: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.form-fieldset>.form-label,
+.form-fieldset>legend.form-label {
+  padding: 0;
+  margin-bottom: 0.15rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.form-req {
+  color: var(--red-accent);
+  font-weight: 900;
+  margin-inline-start: 0.2rem;
+}
+
+.form-opt {
+  color: var(--text-muted);
+  font-weight: 500;
+  font-size: 0.78rem;
+  margin-inline-start: 0.35rem;
+}
+
+.form-micro {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Small muted helper sentence under a field label (e.g. the files link) */
+.form-helper {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin-top: -0.1rem;
+}
+
+.form-field-error {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--red-accent);
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  background-color: var(--bg-subtle);
+  /* Always-visible border so empty fields are clearly outlined. */
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 0.65rem 0.95rem;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  line-height: 1.5;
+  /* Only colors animate — the 1px border width never changes, so
+     focusing a field can never shift its dimensions. */
+  transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 84px;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.85;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  background-color: var(--bg-surface);
+  box-shadow: 0 0 0 2px var(--red-accent-glow);
+}
+
+.form-input.is-invalid,
+.form-textarea.is-invalid {
+  border-color: var(--red-accent);
+  background-color: var(--bg-surface);
+}
+
+/* Long unbroken words, IDs or URLs inside any label/helper must wrap
+   instead of forcing horizontal scrolling on narrow screens. */
+.form-label,
+.form-section-title,
+.form-page-title,
+.form-page-summary,
+.form-option-label,
+.form-option-desc,
+.form-check-title,
+.form-check-desc,
+.form-helper,
+.form-success-msg {
+  overflow-wrap: break-word;
+}
+
+/* Phone row with country prefix */
+.form-phone-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.form-phone-row .form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.form-phone-prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.8rem;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-card);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  flex-shrink: 0;
+}
+
+/* Input with trailing icon (website / social links) */
+.form-input-icon-row {
+  position: relative;
+}
+
+.form-input-icon-row .form-input {
+  padding-inline-end: 2.75rem;
+}
+
+.form-input-icon {
+  position: absolute;
+  inset-inline-end: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* Grids */
+.form-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.form-grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form-grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.form-grid-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+/* --------------------------------------------------------------------------
+   Radio option rows
+   -------------------------------------------------------------------------- */
+.form-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.form-option {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  background-color: var(--bg-subtle);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+/* Radio-circle inset from the cell edge, as PHYSICAL left/right insets
+   instead of padding-inline-end. The circle sits at the inline end, but
+   the inline END is the right side in English and the LEFT side in
+   Arabic — with the logical property RTL also padded its right side and
+   pushed the Arabic text ~45px off the right edge (away from the
+   legend). Scoped per direction so each language only insets on the
+   side its circle actually occupies: English keeps text flush left,
+   Arabic keeps text flush right, circles the same distance from their
+   edge in both. */
+[dir='ltr'] .form-option {
+  padding-right: 3.75rem;
+}
+
+[dir='rtl'] .form-option {
+  padding-left: 3.75rem;
+  /* Zero inset on the text side so the Arabic text sits flush at the
+     cell's right edge, exactly on the same line as the question legend
+     above it. The circle keeps its 3.75rem inset on the left. */
+  padding-right: 0;
+}
+
+.form-option:hover {
+  border-color: var(--border-subtle);
+  background-color: var(--bg-surface);
+}
+
+.form-option.is-selected {
+  border-color: var(--border-focus);
+  background-color: var(--bg-surface);
+}
+
+/* Tighter circle-to-label distance for the design / goal / budget /
+   stage questions only — the other option groups keep the default. */
+.form-options-tight .form-option {
+  gap: 0.5rem;
+}
+
+.form-option-body {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  /* Claim all remaining row width so the radio circle is pinned to the
+     option cell's inline-end edge. Every circle then sits at the same x
+     inside its column — a straight "ruler" line like the goal/stage
+     questions — regardless of how long each label or description is,
+     in both English (LTR) and Arabic (RTL). */
+  flex: 1;
+}
+
+.form-option-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.form-option-icon {
+  color: var(--text-primary);
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.form-option.is-selected .form-option-icon {
+  color: var(--red-accent);
+}
+
+.form-option-label {
+  font-size: 0.925rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.form-option-desc {
+  font-size: 0.79rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.form-option-control {
+  position: relative;
+  width: 19px;
+  height: 19px;
+  border: 2px solid var(--text-muted);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.form-option.is-selected .form-option-control {
+  border-color: var(--red-accent);
+}
+
+.form-option.is-selected .form-option-control::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background-color: var(--red-accent);
+}
+
+/* Keyboard focus indicator for the custom controls */
+.form-visually-hidden:focus-visible+.form-option-control,
+.form-visually-hidden:focus-visible+.form-check-control,
+.form-visually-hidden:focus-visible+.form-activity-control {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   Activity cards (section 03)
+   -------------------------------------------------------------------------- */
+.form-activity-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  text-align: center;
+  background-color: var(--bg-subtle);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.9rem 0.6rem 1rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.form-activity-card:hover {
+  border-color: var(--border-subtle);
+  background-color: var(--bg-surface);
+}
+
+.form-activity-card.is-selected {
+  border-color: var(--border-focus);
+  background-color: var(--bg-surface);
+}
+
+.form-activity-control {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--text-muted);
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.form-activity-card.is-selected .form-activity-control {
+  border-color: var(--red-accent);
+}
+
+.form-activity-card.is-selected .form-activity-control::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background-color: var(--red-accent);
+}
+
+.form-activity-icon {
+  color: var(--text-primary);
+  transition: var(--transition-smooth);
+}
+
+.form-activity-card.is-selected .form-activity-icon {
+  color: var(--red-accent);
+}
+
+.form-activity-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Multi-select check rows (section 02)
+   -------------------------------------------------------------------------- */
+.form-check-row {
+  display: flex;
+  align-items: center;
+  /* The checkbox is pinned to the row's inline-end edge, so every
+     control in the scope matrix lands on one straight vertical line
+     (all grid cards share the same width) — a clean "ruler" layout. */
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--bg-subtle);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.form-check-row:hover {
+  border-color: var(--border-subtle);
+  background-color: var(--bg-surface);
+}
+
+.form-check-row.is-selected {
+  border-color: var(--border-focus);
+  background-color: var(--bg-surface);
+}
+
+.form-check-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.form-check-title {
+  font-size: 0.925rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.form-check-desc {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.form-check-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border: 2px solid var(--text-muted);
+  border-radius: 5px;
+  color: #ffffff;
+  flex-shrink: 0;
+  transition: var(--transition-smooth);
+}
+
+.form-check-row.is-selected .form-check-control {
+  border-color: var(--red-accent);
+  background-color: var(--red-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Dispatch bar (privacy note + submit)
+   -------------------------------------------------------------------------- */
+.form-dispatch-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 0.5rem 0.25rem;
+}
+
+.form-privacy-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.form-privacy-icon {
+  color: var(--red-accent);
+  flex-shrink: 0;
+}
+
+.form-submit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background-color: var(--red-accent);
+  color: #ffffff;
+  border: 0;
+  padding: 0.85rem 1.75rem;
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 14px var(--red-accent-glow);
+  transition: var(--transition-smooth);
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  background-color: var(--red-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--red-accent-glow);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+.form-spin {
+  animation: formSpin 0.9s linear infinite;
+}
+
+@keyframes formSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Error banner + success panel
+   -------------------------------------------------------------------------- */
+.form-error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background-color: var(--red-badge-bg);
+  border: 1px solid var(--red-badge-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+}
+
+.form-error-icon {
+  color: var(--red-accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-error-text strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 0.15rem;
+}
+
+.form-error-text p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.form-success-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: var(--radius-xl);
+  padding: 3.75rem 2rem;
+  box-shadow: var(--shadow-card);
+  /* Match the form's width and centered position after submission. */
+  max-width: 980px;
+  margin-inline: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Soft red glow bleeding in from the top, behind the check icon */
+.form-success-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 460px;
+  height: 220px;
+  background: radial-gradient(ellipse at center top, var(--red-accent-glow), transparent 70%);
+  pointer-events: none;
+}
+
+.form-success-icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--red-badge-bg);
+  border: 1.5px solid var(--red-badge-border);
+  color: var(--red-accent);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 0 28px var(--red-accent-glow);
+  animation: successPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes successPop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.form-success-title {
+  position: relative;
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: var(--text-primary);
+  margin-bottom: 0.65rem;
+}
+
+.form-success-msg {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  max-width: 540px;
+  margin-bottom: 2.25rem;
+}
+
+.form-success-actions {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Secondary (outline) button — pairs with the solid red submit button */
+.form-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.6rem;
+  background-color: transparent;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.form-secondary-btn:hover {
+  border-color: var(--red-accent);
+  color: var(--red-accent);
+  transform: translateY(-2px);
+}
+
+.form-secondary-btn:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Responsive — phones (320px+), tablets, laptops.
+   Every multi-column grid steps down in stages (N → 3/2 → 1) before its
+   cells get too narrow, inputs lock to 16px on touch so iOS/Android can
+   never auto-zoom the page on focus, tap targets stay >= 44px, and all
+   direction-scoped [dir] insets keep working in Arabic (RTL) at every
+   width.
+   -------------------------------------------------------------------------- */
+
+/* The 5-column deadline grid needs ~1240px before the pinned-circle inset
+   still leaves one line for each label — below that it becomes 3-up. */
+@media (max-width: 1240px) {
+  .form-grid-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* iPad landscape / small laptops / large tablets */
+@media (max-width: 1024px) {
+  .form-grid-4,
+  .form-grid-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-page-title {
+    font-size: 1.85rem;
+  }
+}
+
+/* Section 03 activity tiles stay at least 3-across on every tablet and
+   phone instead of following grid-4's 2-col → 1-col step-down (compound
+   selector so the grid-4 rules below can't re-stack it). */
+@media (max-width: 1024px) {
+  .form-grid-4.form-activity-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Touch devices of ANY width (phones and tablets alike):
+   16px fields stop the iOS zoom-on-focus jump, and small controls get a
+   guaranteed 44px minimum tap target. */
+@media (max-width: 1024px), (pointer: coarse) {
+  .form-input,
+  .form-textarea {
+    font-size: 16px;
+  }
+
+  .form-option,
+  .form-check-row,
+  .form-activity-card,
+  .form-back-btn {
+    min-height: 2.75rem;
+  }
+}
+
+/* Tablet portrait & phone landscape — keep two usable columns for the
+   3-up grids instead of stacking everything, compact the cards, and
+   stack the dispatch bar above the full-width submit button. */
+@media (max-width: 860px) {
+  .form-grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-section-head {
+    padding: 0.85rem 1.25rem;
+  }
+
+  .form-section-body {
+    padding: 1.25rem;
+  }
+
+  .form-dispatch-bar {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 1.25rem;
+  }
+
+  .form-submit-btn {
+    justify-content: center;
+    /* Stacked full-width CTA: trim padding, text size and glow so the
+       stretched button stays compact instead of dominating the screen.
+       min-height keeps the tap target at 44px. */
+    padding: 0.7rem 1.25rem;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    box-shadow: 0 3px 10px var(--red-accent-glow);
+  }
+}
+
+@media (max-width: 600px) {
+  .wd-form-page {
+    padding: 1.25rem 0 3.5rem;
+  }
+
+  .form-page-header {
+    padding: 0.5rem 0 1.75rem;
+  }
+
+  .form-back-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .form-page-title {
+    font-size: 1.5rem;
+  }
+
+  .form-page-summary {
+    font-size: 0.925rem;
+  }
+
+  .form-section-title {
+    font-size: 1.1rem;
+  }
+
+  .form-section-tag {
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+  }
+
+  .form-section-body {
+    padding: 1.15rem 0.9rem;
+  }
+
+  .form-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-option,
+  .form-check-row {
+    padding: 0.65rem 0.8rem;
+  }
+
+  /* Keep the radio circle off the cell edge on small screens too. */
+  [dir='ltr'] .form-option {
+    padding-right: 2.25rem;
+  }
+
+  [dir='rtl'] .form-option {
+    padding-left: 2.25rem;
+    padding-right: 0;
+  }
+
+  .form-activity-card {
+    padding: 0.9rem 0.5rem 1rem;
+  }
+
+  .form-success-panel {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .form-success-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .form-success-actions .form-submit-btn,
+  .form-success-actions .form-secondary-btn {
+    justify-content: center;
+  }
+}
+
+/* Phones in portrait — stack every remaining grid to one column so no
+   field, option card or radio row ever gets cramped. */
+@media (max-width: 560px) {
+  .form-grid-2,
+  .form-grid-3 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 420px) {
+
+  .form-grid-4,
+  .form-grid-5 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .form-option-label,
+  .form-check-title {
+    font-size: 0.875rem;
+  }
+
+  /* Activity tiles: with 3-across at this width, tighten the tile so
+     icon + label never clip or force an awkward mid-word break. */
+  .form-activity-grid {
+    gap: 0.5rem;
+  }
+
+  .form-activity-card {
+    padding: 0.7rem 0.35rem 0.8rem;
+  }
+
+  .form-activity-label {
+    font-size: 0.75rem;
+  }
+}
+
+/* Smallest supported phones (iPhone SE / 12 mini class, 320-380px):
+   tighten the page rhythm so header, section cards and the phone-row
+   all stay on screen without horizontal scroll. */
+@media (max-width: 380px) {
+  .form-page-title {
+    font-size: 1.3rem;
+  }
+
+  .form-page-summary {
+    font-size: 0.875rem;
+  }
+
+  .form-section-head {
+    padding: 0.75rem 1rem;
+  }
+
+  .form-section-title {
+    font-size: 1rem;
+  }
+
+  .form-section-body {
+    padding: 1rem 0.75rem;
+  }
+
+  .form-phone-prefix {
+    padding: 0 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Phone landscape (short viewports): don't waste the little vertical
+   space on large page-header gaps. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .wd-form-page {
+    padding-top: 0.75rem;
+  }
+
+  .form-page-header {
+    padding-bottom: 1rem;
+  }
+}

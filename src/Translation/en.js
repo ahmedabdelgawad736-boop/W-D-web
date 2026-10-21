@@ -302,18 +302,281 @@ export const EN = {
       },
     ],
   },
+  form: {
+    headerTag: "QUOTE_REQUEST // WD",
+    headerTitle: "Project Brief & Engineering Measurements Request",
+    headerSummary:
+      "Fill in the details below so our engineering team can visit your site, carry out the technical assessment, and prepare a free quotation and 3D design within 48 hours.",
+    backLink: "Back to Home Page",
+    emailSubject: "New Quote Request – W & D Website",
+    optionalTag: "(optional)",
+    validation: {
+      required: "This field is required",
+      invalidEmail: "Please enter a valid email address",
+      invalidPhone: "Please enter a valid phone number",
+    },
+    success: {
+      title: "Your request has been sent",
+      message:
+        "Thank you. We have received your project details, and our engineering team will contact you within 48 hours to schedule the free site visit.",
+      btn: "Submit another request",
+      home: "Back to Home Page",
+    },
+    error: {
+      title: "We could not send your request",
+      generic:
+        "Something went wrong while submitting the form. Please check your internet connection and try again.",
+    },
+    submitBtn: "Send Project Request & Engineering Measurements",
+    submitting: "Sending your request…",
+    privacy: "Your data is documented and never shared with any third party",
+    sections: {
+      client: { num: "01", title: "Client & Requesting Entity Details" },
+      scope: { num: "02", title: "What Do You Need From W & D? (Scope of Work)" },
+      project: { num: "03", title: "Project Details & Activity" },
+      budget: { num: "04", title: "Estimated Budget & Delivery Timeline" },
+      confirm: { num: "05", title: "Contact Channels & Request Confirmation" },
+    },
+    fields: {
+      fullName: { label: "Full Name", ph: "Mohamed Ahmed" },
+      companyName: { label: "Company or Trade Name", ph: "e.g. ABC Architecture & Retail" },
+      facilityStatus: {
+        label: "Business / Facility Status",
+        options: [
+          { id: "existing", label: "I have an existing company / facility" },
+          { id: "new_project", label: "Starting a brand new project" },
+          { id: "freelance", label: "Freelancer / no company yet" },
+        ],
+      },
+      phone: { label: "Mobile / WhatsApp Number", ph: "01XXXXXXXX / 015XXXXXXXX", prefix: "+20" },
+      email: { label: "Primary Email Address", ph: "name@company.com" },
+      city: { label: "Governorate & City", ph: "10th of Ramadan / Sharqia" },
+      area: { label: "District or Industrial Zone", ph: "District or industrial zone" },
+      website: {
+        label: "Website or Social Media Links",
+        ph: "https://instagram.com/yourbrand, www.example.com",
+      },
+      scope: {
+        micro: "MULTI_SELECT",
+        label: "Select the services you need — you can choose more than one option.",
+        items: [
+          {
+            id: "cladding",
+            title: "Facade Design & Build (Cladding - ACP)",
+            desc: "ACP facades with fire-rated A2 panels and excellent insulation",
+          },
+          {
+            id: "signage3d",
+            title: "Architectural Lighting & Signage (3D Signage)",
+            desc: "LED systems in every scale, with engineered effects and structures",
+          },
+          {
+            id: "neon",
+            title: "Illuminated Signage (Neon & LED Optics)",
+            desc: "Neon flex and raised letters lit with LED at the best prices",
+          },
+          {
+            id: "pylons",
+            title: "Pylons & Entry Structures (Exterior Pylons)",
+            desc: "Advertising pylons in various heights and landmark entry gates",
+          },
+          {
+            id: "wayfinding",
+            title: "Wayfinding & Information Systems (Wayfinding)",
+            desc: "Indoor and outdoor guidance systems for buildings, malls and hospitals",
+          },
+          {
+            id: "exhibitions",
+            title: "Exhibition & Commercial Displays (Commercial Reels)",
+            desc: "Commercial, moving brand displays in 4K/8K quality",
+          },
+          {
+            id: "billboards",
+            title: "Mega Billboards & Unipoles (Mega Billboards & Unipoles)",
+            desc: "Maximum highway impact with unipole masts and billboards",
+          },
+          {
+            id: "integrated_ads",
+            title: "Integrated Advertising Systems Delivery",
+            desc: "Turnkey outdoor and advertising systems built to your brand identity",
+          },
+          {
+            id: "cladding_reels",
+            title: "Building Facade Cladding & Envelope (Exterior Reels)",
+            desc: "High-quality parking and building envelope cladding at competitive prices",
+          },
+          {
+            id: "branding",
+            title: "Brand Identity & Advertising Development (Branding)",
+            desc: "Complete identity design and advertising campaigns at the highest standards",
+          },
+          {
+            id: "other_solutions",
+            title: "Custom-Designed & Specialist Solutions",
+            desc: "Bespoke fit-out and installation per your project specifications",
+          },
+          {
+            id: "performance_ads",
+            title: "Paid Ads & Digital Marketing (Performance Ads)",
+            desc: "Paid advertising campaigns and lead generation",
+          },
+        ],
+      },
+      projectDetails: {
+        micro: "NARRATIVE_TEXT",
+        label: "Tell us about the project, its main goals and measurements.",
+        ph: "e.g. The space is currently a 140 m² used warehouse; I need design, build and installation of ground-floor ACP cladding in two phases…",
+      },
+      hasDesign: {
+        label: "Do you already have a design, drawing or active plan?",
+        options: [
+          {
+            id: "shop_drawings",
+            label: "I have ready drawings (Shop Drawings / 3D)",
+            desc: "Execution drawings and plans ready to start immediately",
+          },
+          {
+            id: "designer",
+            label: "Designed by another designer",
+            desc: "Execution drawings need to be prepared from it",
+          },
+          {
+            id: "references",
+            label: "I have reference images and ideas",
+            desc: "Send us the images and ideas and we will build on them",
+          },
+          {
+            id: "consultation",
+            label: "I only need help and consultation",
+            desc: "From the design stage through to execution and handover",
+          },
+        ],
+      },
+      filesLink: {
+        label: "Project Files Link",
+        ph: "Paste your Google Drive or Dropbox link here",
+        helper:
+          "Share your images, PDFs or design files through Google Drive, Dropbox or any other file-sharing service, and make sure the link permissions allow W & D to access the files.",
+      },
+      activity: {
+        label: "What is the type of business or facility?",
+        options: [
+          { id: "restaurant", label: "Restaurant or Café", icon: "UtensilsCrossed" },
+          { id: "retail", label: "Shop or Showroom", icon: "Store" },
+          { id: "real_estate", label: "Real Estate or Commercial Mall", icon: "Building2" },
+          { id: "fashion", label: "Fashion or Products Brand", icon: "Shirt" },
+          { id: "medical", label: "Medical Lab or Clinics", icon: "HeartPulse" },
+          { id: "factory", label: "Factory or Industrial Facility", icon: "Factory" },
+          { id: "admin", label: "Company or Administrative Building", icon: "Briefcase" },
+          { id: "other", label: "Other Commercial Activity", icon: "LayoutGrid" },
+        ],
+      },
+      goal: {
+        label: "What is the main goal of your request?",
+        options: [
+          { id: "new_full", label: "Founding and fully equipping a new project" },
+          { id: "renew", label: "Developing and renewing the current look" },
+          { id: "sales", label: "Boosting sales and attracting customers" },
+          { id: "campaign", label: "Launching an ad campaign tied to the location" },
+          { id: "products", label: "Renewing the product facade and diversifying display" },
+          { id: "exhibition", label: "Preparing an upcoming exhibition" },
+        ],
+      },
+      stage: {
+        label: "What stage is the project at?",
+        options: [
+          { id: "idea", label: "Idea and planning stage" },
+          { id: "construction", label: "Fit-out and finishing stage" },
+          { id: "operating", label: "Existing, operating project" },
+          { id: "handover", label: "Space handed over, delivery soon" },
+        ],
+      },
+      location: {
+        micro: "LOCATION_COORDINATES",
+        label: "Where will the project be executed? (Approximate address or pin location)",
+        ph: "e.g. New Cairo, 10th of Ramadan industrial zone, commercial mall, ground floor…",
+      },
+      budget: {
+        label: "What is the approximate project budget?",
+        options: [
+          {
+            id: "lt_5k",
+            label: "Less than 5,000 EGP",
+            desc: "Small services, consultations, simple signage and decor",
+          },
+          {
+            id: "5k_15k",
+            label: "5,000 to 15,000 EGP",
+            desc: "Small projects, fit-out, limited facades and signage",
+          },
+          {
+            id: "15k_30k",
+            label: "15,000 to 30,000 EGP",
+            desc: "Cladding facades, various signage, commercial fit-out",
+          },
+          {
+            id: "30k_75k",
+            label: "30,000 to 75,000 EGP",
+            desc: "Integrated cladding facades and complete architectural identity",
+          },
+          {
+            id: "gt_75k",
+            label: "More than 75,000 EGP",
+            desc: "Large architectural projects, commercial and industrial complexes",
+          },
+          {
+            id: "custom",
+            label: "Determine cost after site visit",
+            desc: "Based on the technical assessment, quantities and load calculations",
+          },
+        ],
+      },
+      deadline: {
+        label: "When do you want execution to start?",
+        options: [
+          { id: "urgent", label: "ASAP (urgent)" },
+          { id: "week", label: "Within a week" },
+          { id: "two_weeks", label: "Within two weeks" },
+          { id: "month", label: "Within a month" },
+          { id: "flexible", label: "Flexible schedule" },
+        ],
+      },
+      hardDeadline: {
+        label: "Is there a hard deadline for delivery?",
+        dateLabel: "Final delivery date",
+        datePh: "mm/dd/yyyy",
+        options: [
+          { id: "yes", label: "Yes, tied to an opening or handover" },
+          { id: "no", label: "No fixed date / flexible timeline" },
+        ],
+      },
+      channel: {
+        label: "What is your preferred way of contacting you?",
+        options: [
+          { id: "whatsapp", label: "WhatsApp (fastest)", desc: "Instant follow-up over WhatsApp", icon: "MessageCircle" },
+          { id: "call", label: "Phone call", desc: "A direct call to discuss the details", icon: "Phone" },
+          { id: "email", label: "Primary email", desc: "A detailed message with the quotation", icon: "Mail" },
+        ],
+      },
+      callTime: {
+        label: "The best time to reach you:",
+        options: [
+          { id: "morning", label: "Morning (09:00 AM - 12:00 PM)" },
+          { id: "noon", label: "Afternoon (12:00 PM - 04:00 PM)" },
+          { id: "evening", label: "Evening (04:00 PM - 09:00 PM)" },
+        ],
+      },
+      notes: {
+        label: "Any designs, notes or special requirements you would like to share?",
+        ph: "e.g. Notes about access hours, site restrictions, material preferences…",
+      },
+    },
+  },
   contact: {
-    badge: "Direct Engineering Contact",
-    title: "Ready to Build Your Next Architectural Landmark?",
+    title: "Transform Your Facility's Exterior with Exceptional Engineering?",
     summary:
-      "Our engineering team is ready to review your blueprints, perform load assessments, and provide turnkey cost estimations.",
-    ctaBtn: "Connect with Us via WhatsApp",
-    locationTitle: "Headquarters & Plant",
-    locationValue: "10th of Ramadan Industrial City, Zone B3, Egypt",
-    phoneTitle: "Direct Inquiries",
-    phoneValue: "+20 100 582 2000",
-    emailTitle: "Tenders & Specifications",
-    emailValue: "worlddesignads@gmail.com",
+      "The W & D Agency team of engineers and designers is ready to visit your site, conduct a technical assessment, and provide a quotation and a 3D design free of charge within 48 hours.",
+    ctaBtn: "Fill Out the Quote Request Form",
   },
   footer: {
     companyDesc:
