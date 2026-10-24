@@ -45,8 +45,6 @@ html.theme-dark .wd-hero-section,
 .hero-text-col {
   display: flex;
   flex-direction: column;
-  /* Keeps the text clear of the section edge now that the section itself has
-     no bottom padding (only applies to the 2-column desktop layout). */
   padding-bottom: 3.5rem;
 }
 
