@@ -26,8 +26,9 @@ import Footer from '../components/Footer';
 
 import './Form.css';
 
-/* Formspree handles receiving the submissions — no backend is needed. */
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xaeqgjrw';
+/* Web3Forms handles receiving the submissions — no backend is needed. */
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY = '7e4a5ccc-d2f7-4d29-8458-19b05ed37705';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /* Activity / channel icons resolved from the translation option lists. */
@@ -279,42 +280,43 @@ export default function Form() {
     setSubmitError('');
 
     try {
-      /* Plain url-encoded text fields only — no file uploads, so the
-         Formspree free plan's "File Uploads Not Permitted" error can
-         never occur. The project files link travels as a normal field. */
-      const body = new URLSearchParams();
-      body.append('_subject', f.emailSubject);
-      body.append('_gotcha', ''); /* honeypot for spam bots */
+      const formData = new FormData();
+      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('subject', f.emailSubject || 'طلب عرض سعر جديد — WD Agency');
+      formData.append('from_name', values.fullName ? `${values.fullName} (WD Agency Website)` : 'WD Agency Website');
+      formData.append('botcheck', '');
+
+      // Set standard name & email for Web3Forms Reply-To handling
+      if (values.fullName) formData.append('name', values.fullName.trim());
+      if (values.email) formData.append('email', values.email.trim());
 
       Object.entries(FIELD_NAMES).forEach(([key, name]) => {
-        const value = (values[key] || '').trim();
-        if (value) body.append(name, value);
+        if (key !== 'email') {
+          const value = (values[key] || '').trim();
+          if (value) formData.append(name, value);
+        }
       });
-      values.scope.forEach((title) => body.append('scope[]', title));
 
-      const response = await fetch(FORMSPREE_ENDPOINT, {
+      if (values.scope && values.scope.length > 0) {
+        formData.append('scope_of_work', values.scope.join(', '));
+      }
+
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
-        body,
+        body: formData,
         headers: { Accept: 'application/json' },
       });
 
-      if (!response.ok) {
-        let message = f.error.generic;
-        try {
-          const data = await response.json();
-          if (data?.errors?.length) {
-            message = data.errors.map((err) => err.message).filter(Boolean).join(' — ') || message;
-          }
-        } catch {
-          /* keep the generic message */
-        }
-        throw new Error(message);
-      }
+      const data = await response.json();
 
-      setStatus('success');
-      setValues(INITIAL_VALUES);
-      setErrors({});
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (response.ok && data.success) {
+        setStatus('success');
+        setValues(INITIAL_VALUES);
+        setErrors({});
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        throw new Error(data.message || f.error.generic);
+      }
     } catch (error) {
       setSubmitError(error?.message || f.error.generic);
       setStatus('idle');
