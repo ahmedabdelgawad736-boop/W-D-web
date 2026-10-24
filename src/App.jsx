@@ -7,8 +7,13 @@ import Form from './Pages/Form';
 /* The project has no router dependency: navigation is hash based
    (e.g. "#about" scrolls to a landing page section). "#/quote" opens the
    dedicated quote request form page, everything else shows the landing page. */
-const getRoute = () =>
-  typeof window !== 'undefined' && window.location.hash.startsWith('#/quote') ? 'quote' : 'home';
+const getRoute = () => {
+  if (typeof window === 'undefined') return 'home';
+  const hash = (window.location.hash || '').toLowerCase();
+  return hash.startsWith('#/quote') || hash === '#quote'
+    ? 'quote'
+    : 'home';
+};
 
 export default function App() {
   const [route, setRoute] = useState(getRoute);

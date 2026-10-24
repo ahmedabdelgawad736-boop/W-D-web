@@ -46,7 +46,7 @@ const ICON_MAP = {
   Mail,
 };
 
-/* Stable field names so Formspree submissions stay readable. */
+/* Stable field names so Web3Forms submissions stay readable in email notifications. */
 const FIELD_NAMES = {
   fullName: 'full_name',
   companyName: 'company_name',
@@ -272,7 +272,15 @@ export default function Form() {
     const firstInvalid = Object.keys(nextErrors)[0];
     if (firstInvalid) {
       const node = formRef.current?.querySelector(`[name="${FIELD_NAMES[firstInvalid]}"]`);
-      if (node) node.focus();
+      if (node) {
+        node.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        node.focus({ preventScroll: true });
+      }
+      setSubmitError(
+        isAr
+          ? 'يرجى استكمال جميع الحقول المطلوبة المشار إليها بعلامة (*)'
+          : 'Please complete all required fields marked with (*)'
+      );
       return;
     }
 
@@ -308,6 +316,7 @@ export default function Form() {
       });
 
       const data = await response.json();
+      console.log('Web3Forms response:', data);
 
       if (response.ok && data.success) {
         setStatus('success');
@@ -318,6 +327,7 @@ export default function Form() {
         throw new Error(data.message || f.error.generic);
       }
     } catch (error) {
+      console.error('Web3Forms submission error:', error);
       setSubmitError(error?.message || f.error.generic);
       setStatus('idle');
     }
