@@ -329,21 +329,28 @@
     padding: 1.5rem;
     flex-direction: column;
     gap: 1.25rem;
-    transform: translateY(-150%);
+    transform: translateY(-16px);
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
     box-shadow: var(--shadow-dropdown);
     z-index: 999;
     max-height: calc(100vh - 74px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    will-change: transform, opacity;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.22s ease,
+                visibility 0.28s;
   }
 
   .nav-links-center.mobile-drawer-open {
     transform: translateY(0);
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.25s ease;
   }
 
   .nav-pill-container {
