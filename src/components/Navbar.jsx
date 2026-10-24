@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sun, Moon, FileText, Menu, X } from 'lucide-react';
 import brandLogo from '../assets/brand icon/wd.jpg';
 import { useLanguage } from '../Translation/LanguageContext';
@@ -14,13 +14,23 @@ export default function Navbar() {
     setMobileOpen(false);
   };
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [mobileOpen]);
+
   return (
     <header className="wd-navbar-wrapper">
       <div className="wd-container">
         <nav className={`wd-navbar ${lang === 'ar' ? 'nav-dir-ar' : 'nav-dir-en'}`}>
           {/* Brand Identity */}
           <div className="navbar-brand">
-            <a href="#" className="brand-link" aria-label="Agency WD World Design Engineering">
+            <div className="brand-link" aria-label="Agency WD World Design Engineering">
               <div className="brand-logo-frame">
                 <img 
                   src={brandLogo} 
@@ -32,11 +42,14 @@ export default function Navbar() {
                 <span className="brand-main-title">{t.nav.brandTitle}</span>
                 <span className="brand-sub-title">{t.nav.brandSubtitle}</span>
               </div>
-            </a>
+            </div>
           </div>
 
           {/* Navigation Links (Center Pill Container) */}
-          <div className={`nav-links-center ${mobileOpen ? 'mobile-drawer-open' : ''}`}>
+          <div 
+            id="mobile-nav-drawer"
+            className={`nav-links-center ${mobileOpen ? 'mobile-drawer-open' : ''}`}
+          >
             <div className="nav-pill-container">
               <a href="#about" className="nav-item" onClick={handleNavClick}>
                 {t.nav.about}

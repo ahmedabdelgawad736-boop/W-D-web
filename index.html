@@ -1,54 +1,66 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/wd.jpg" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/wd.jpg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>W &amp; D | Industrial Signage, Pylons &amp; Cladding Facades</title>
 
-    <!-- Pre-render initialization: applies the saved theme + language before React mounts
-         (and before the stylesheet is parsed) so Dark Mode never flashes Light Mode on
-         refresh. Uses the exact same storage keys / classes / attributes as
-         ThemeContext.jsx and LanguageContext.jsx (wd_theme, wd_lang) — no second system. -->
-    <script>
-      (function () {
-        try {
-          var root = document.documentElement;
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/jpeg" href="/wd.jpg" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="apple-touch-icon" href="/wd.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>W &amp; D | Industrial Signage, Pylons &amp; Cladding Facades</title>
+  <script>
+    (function () {
+      try {
+        var root = document.documentElement;
 
-          var theme = null;
-          try { theme = localStorage.getItem('wd_theme'); } catch (e) { theme = null; }
-          if (theme !== 'dark' && theme !== 'light') theme = 'light';
-          root.classList.add('theme-' + theme);
-          root.setAttribute('data-theme', theme);
+        var theme = null;
+        try { theme = localStorage.getItem('wd_theme'); } catch (e) { theme = null; }
+        if (theme !== 'dark' && theme !== 'light') theme = 'light';
+        root.classList.add('theme-' + theme);
+        root.setAttribute('data-theme', theme);
 
-          var lang = null;
-          try { lang = localStorage.getItem('wd_lang'); } catch (e) { lang = null; }
-          if (lang !== 'ar' && lang !== 'en') lang = 'ar';
-          root.setAttribute('lang', lang);
-          root.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-        } catch (e) {
-          /* never block rendering */
-        }
-      })();
-    </script>
-    <style>
-      /* Critical canvas color: correct background even if the bundled stylesheet
+        var lang = null;
+        try { lang = localStorage.getItem('wd_lang'); } catch (e) { lang = null; }
+        if (lang !== 'ar' && lang !== 'en') lang = 'ar';
+        root.setAttribute('lang', lang);
+        root.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      } catch (e) {
+        /* never block rendering */
+      }
+    })();
+  </script>
+  <style>
+    /* Critical canvas color: correct background even if the bundled stylesheet
          is still loading. Values mirror the tokens defined in src/index.css. */
-      html { color-scheme: light; background-color: #fdfdfd; }
-      html.theme-light { color-scheme: light; background-color: #fdfdfd; }
-      html.theme-dark { color-scheme: dark; background-color: #0c0d10; }
-    </style>
-    <meta name="description" content="W &amp; D specialized divisions: turnkey execution from CAD structural simulation to on-site crane civil anchorage. Channel letters, mega pylons, ACP cladding, and spatial wayfinding." />
-    
-    <!-- Google Fonts: Space Grotesk, Cairo & JetBrains Mono -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+    html {
+      color-scheme: light;
+      background-color: #fdfdfd;
+    }
+
+    html.theme-light {
+      color-scheme: light;
+      background-color: #fdfdfd;
+    }
+
+    html.theme-dark {
+      color-scheme: dark;
+      background-color: #0c0d10;
+    }
+  </style>
+  <meta name="description"
+    content="W &amp; D specialized divisions: turnkey execution from CAD structural simulation to on-site crane civil anchorage. Channel letters, mega pylons, ACP cladding, and spatial wayfinding." />
+
+  <!-- Google Fonts: Space Grotesk, Cairo & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700;800&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>
