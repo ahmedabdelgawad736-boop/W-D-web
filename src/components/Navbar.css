@@ -39,7 +39,16 @@
   align-items: center;
   gap: 0.85rem;
   text-decoration: none;
-  cursor: pointer;
+  cursor: default;
+  user-select: none;
+}
+
+.brand-logo-frame,
+.brand-logo-img,
+.brand-text-column,
+.brand-main-title,
+.brand-sub-title {
+  cursor: default;
 }
 
 .brand-logo-frame {
