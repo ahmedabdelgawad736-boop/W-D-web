@@ -165,6 +165,8 @@ export default function Navbar() {
               className="mobile-hamburger-btn"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle navigation menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-nav-drawer"
             >
               {mobileOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
