@@ -109,6 +109,18 @@ export default function Footer() {
                 <InstagramIcon />
               </a>
             </div>
+
+            {/* Email */}
+            <a
+              href="https://mail.google.com/mail/?view=cm&to=worlddesignads@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-email-link"
+              aria-label="Send email to W & D"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              worlddesignads@gmail.com
+            </a>
           </div>
 
           {/* Col 2: Navigation Links */}

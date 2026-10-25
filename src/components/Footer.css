@@ -73,6 +73,22 @@
   box-shadow: 0 4px 10px var(--red-accent-glow);
 }
 
+.footer-email-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.22s ease;
+}
+
+.footer-email-link:hover {
+  color: var(--red-accent);
+}
+
 /* Footer Nav */
 .footer-title {
   font-size: 0.825rem;
