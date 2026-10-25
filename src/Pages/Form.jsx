@@ -27,7 +27,7 @@ import Footer from '../components/Footer';
 import './Form.css';
 
 /* SiteBackend handles receiving form submissions — submissions appear at sitebackend.com */
-const SITEBACKEND_ENDPOINT = 'https://api.sitebackend.com/forms/3dwidruxqk';
+const SITEBACKEND_ENDPOINT = 'https://api.sitebackend.com/forms/d396dbd9ce';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /* Activity / channel icons resolved from the translation option lists. */
