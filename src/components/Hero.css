@@ -49,7 +49,7 @@ html.theme-dark .wd-hero-section,
 }
 
 .hero-heading {
-  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  font-size: clamp(2.5rem, 3.5vw, 3.4rem);
   font-weight: 900;
   line-height: 1.25;
   color: var(--text-primary);
