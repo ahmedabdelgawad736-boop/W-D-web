@@ -356,3 +356,73 @@ html.theme-dark .wd-hero-section,
     padding: 0.35rem 0.8rem;
   }
 }
+
+/* ── Phones: single stacked column, centered — heading / lead / full-width
+   CTAs / image below. Overrides every two-column rule above. ── */
+@media (max-width: 640px) {
+  .wd-hero-section {
+    padding: 2rem 0 0;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: clamp(1.25rem, 4vw, 1.75rem);
+    justify-items: center;
+  }
+
+  .hero-text-col {
+    width: 100%;
+    padding-bottom: 0;
+  }
+
+  .hero-grid-ar .hero-text-col,
+  .hero-grid-en .hero-text-col {
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-heading {
+    font-size: clamp(1.4rem, 6vw, 1.9rem);
+    line-height: 1.3;
+    margin-bottom: 1rem;
+  }
+
+  .hero-lead {
+    font-size: clamp(0.85rem, 3.6vw, 1rem);
+    line-height: 1.65;
+    margin-bottom: 1.75rem;
+    max-width: 34rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Each CTA gets its own line, stacked and centered — slightly inset from
+     the column edges instead of full-bleed. */
+  .hero-actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 88%;
+    justify-content: center;
+    padding: 0.9rem 1.25rem;
+    font-size: 0.95rem;
+    gap: 0.6rem;
+    white-space: nowrap;
+  }
+
+  .hero-visual-col {
+    width: 100%;
+    align-self: auto;
+  }
+
+  .hero-main-img {
+    max-width: min(100%, 460px);
+    margin-bottom: 0;
+    transform: none;
+  }
+}
