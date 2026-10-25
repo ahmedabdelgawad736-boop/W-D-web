@@ -516,8 +516,8 @@ html.theme-dark .feature-pill-card:hover,
 .services-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 3.5rem;
+  align-items: flex-start;
+  margin-bottom: 3.4rem;
   gap: 2rem;
 }
 
@@ -550,12 +550,16 @@ html.theme-dark .feature-pill-card:hover,
 
 .services-desc-col {
   max-width: 480px;
+  /* Drop the paragraph by the badge's height + its 1rem margin so its first
+     line lines up with the heading's first line. */
+  margin-top: calc(1rem + 1.8rem);
 }
 
 .services-summary {
   font-size: 0.95rem;
   line-height: 1.7;
   color: var(--text-secondary);
+  transform: translateY(10px);
 }
 
 /* 4x2 Grid of Services */
@@ -712,6 +716,11 @@ html.theme-dark .service-link:hover,
     align-items: flex-start;
     gap: 1rem;
     margin-bottom: 2.25rem;
+  }
+
+  /* Stacked layout: the 1rem gap already spaces the columns out. */
+  .services-desc-col {
+    margin-top: 0;
   }
 
   .services-heading {
