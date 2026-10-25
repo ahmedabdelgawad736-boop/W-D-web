@@ -26,9 +26,8 @@ import Footer from '../components/Footer';
 
 import './Form.css';
 
-/* Web3Forms handles receiving the submissions — no backend is needed. */
-const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
-const WEB3FORMS_ACCESS_KEY = '7e4a5ccc-d2f7-4d29-8458-19b05ed37705';
+/* SiteBackend handles receiving form submissions — submissions appear at sitebackend.com */
+const SITEBACKEND_ENDPOINT = 'https://api.sitebackend.com/forms/3dwidruxqk';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 /* Activity / channel icons resolved from the translation option lists. */
@@ -289,12 +288,10 @@ export default function Form() {
 
     try {
       const formData = new FormData();
-      formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+      formData.append('_gotcha', ''); // SiteBackend spam protection honeypot
       formData.append('subject', f.emailSubject || 'طلب عرض سعر جديد — WD Agency');
-      formData.append('from_name', values.fullName ? `${values.fullName} (WD Agency Website)` : 'WD Agency Website');
-      formData.append('botcheck', '');
 
-      // Set standard name & email for Web3Forms Reply-To handling
+      // Set standard name & email for SiteBackend
       if (values.fullName) formData.append('name', values.fullName.trim());
       if (values.email) formData.append('email', values.email.trim());
 
@@ -309,25 +306,25 @@ export default function Form() {
         formData.append('scope_of_work', values.scope.join(', '));
       }
 
-      const response = await fetch(WEB3FORMS_ENDPOINT, {
+      const response = await fetch(SITEBACKEND_ENDPOINT, {
         method: 'POST',
         body: formData,
         headers: { Accept: 'application/json' },
       });
 
       const data = await response.json();
-      console.log('Web3Forms response:', data);
+      console.log('SiteBackend response:', data);
 
-      if (response.ok && data.success) {
+      if (response.ok && (data.ok || data.success)) {
         setStatus('success');
         setValues(INITIAL_VALUES);
         setErrors({});
         window.scrollTo({ top: 0, behavior: 'smooth' });
       } else {
-        throw new Error(data.message || f.error.generic);
+        throw new Error(data.message || data.error || f.error.generic);
       }
     } catch (error) {
-      console.error('Web3Forms submission error:', error);
+      console.error('SiteBackend submission error:', error);
       setSubmitError(error?.message || f.error.generic);
       setStatus('idle');
     }
